@@ -1,0 +1,152 @@
+.radio-controls button {
+    background: none;
+    /* Elimina el fondo para que se vea más delgado */
+    border: none;
+    /* Elimina el borde */
+    padding: 5px;
+    /* Ajusta el espacio interior del botón */
+    width: 30px;
+    /* Define el ancho del botón */
+    height: 30px;
+    /* Define la altura del botón */
+    cursor: pointer;
+    /* Cambia el cursor al pasar por encima */
+}
+
+.radio-controls button img {
+    width: 100%;
+    /* Asegura que la imagen se ajuste al tamaño del botón */
+    height: auto;
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0.60);
+    color: #fff;
+    padding: 0px;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    margin-bottom: 550px;
+    width: 100%;
+}
+
+body {
+    margin-top: 70px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+nav p {
+    margin: 0;
+    display: inline;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.menu {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(51, 51, 51, 0.9);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 1001;
+    min-width: 150px;
+}
+
+.menu-content a {
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.menu-content a:hover {
+    background-color: #575757;
+}
+
+.menu:hover .menu-content {
+    display: block;
+}
+
+/* Estilos para móvil */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: rgba(51, 51, 51, 0.9);
+    width: 100%;
+    text-align: right;
+    padding: 10px;
+}
+
+.mobile-menu a {
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+@media (max-width: 800px) {
+    nav {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: none;
+    }
+
+    .show {
+        display: flex;
+    }
+
+    header h4 {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    #menuButton {
+        display: none;
+    }
+}
