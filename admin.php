@@ -5,7 +5,6 @@ require 'libs/Parsedown.php';
 
 $parsedown = new Parsedown();
 
-// Verificar si el usuario es administrador
 if (!isset($_SESSION['nombre_usuario']) || $_SESSION['nombre_usuario'] !== 'admin') {
     echo "<script>
         alert('No tienes permiso para acceder a esta página.');
@@ -14,12 +13,10 @@ if (!isset($_SESSION['nombre_usuario']) || $_SESSION['nombre_usuario'] !== 'admi
     exit;
 }
 
-// Recoger filtros del formulario
 $tipo_objeto = isset($_GET['tipo_objeto']) ? $_GET['tipo_objeto'] : '';
 $fecha_inicio = isset($_GET['fecha_inicio']) ? $_GET['fecha_inicio'] : '';
 $fecha_fin = isset($_GET['fecha_fin']) ? $_GET['fecha_fin'] : '';
 
-// Construir la consulta SQL con los filtros
 $sql = "SELECT r.*, 
                u.nombre_usuario, 
                h.titulo AS hilo_titulo, 
@@ -32,23 +29,18 @@ $sql = "SELECT r.*,
         LEFT JOIN comentarios c ON r.tipo_objeto = 'comentario' AND r.id_objeto = c.id_comentario
         WHERE 1=1";
 
-// Añadir filtro por tipo de objeto
 if (!empty($tipo_objeto)) {
     $sql .= " AND r.tipo_objeto = ?";
 }
 
-// Añadir filtro por rango de fechas
 if (!empty($fecha_inicio) && !empty($fecha_fin)) {
     $sql .= " AND r.fecha_reporte BETWEEN ? AND ?";
 }
 
-// Ordenar por la fecha de reporte
 $sql .= " ORDER BY r.fecha_reporte DESC";
 
-// Preparar la consulta
 $stmt = $conexion->prepare($sql);
 
-// Enlazar parámetros a la consulta si se han aplicado filtros
 if (!empty($tipo_objeto) && !empty($fecha_inicio) && !empty($fecha_fin)) {
     $stmt->bind_param("sss", $tipo_objeto, $fecha_inicio, $fecha_fin);
 } elseif (!empty($tipo_objeto)) {
@@ -60,7 +52,6 @@ if (!empty($tipo_objeto) && !empty($fecha_inicio) && !empty($fecha_fin)) {
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Función para calcular el tiempo transcurrido desde la fecha de reporte
 function tiempoTranscurrido($fecha)
 {
     $fecha_inicio = new DateTime($fecha);
@@ -82,36 +73,29 @@ function tiempoTranscurrido($fecha)
     }
 }
 
-// Conexión a la base de datos
 include "conexion.php";
 
-// Verificar si se ha enviado el formulario para crear una nueva radio
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nombre_radio'], $_POST['url_radio'])) {
     $nombre_radio = $_POST['nombre_radio'];
     $url_radio = $_POST['url_radio'];
 
-    // Insertar la nueva radio en la base de datos
     $stmt = $conexion->prepare("INSERT INTO radio (nombre, url) VALUES (?, ?)");
     $stmt->bind_param("ss", $nombre_radio, $url_radio);
     $stmt->execute();
     $stmt->close();
 
-    // Redirigir para evitar el reenvío del formulario
     header("Location: admin.php");
     exit();
 }
 
-// Verificar si se ha solicitado la eliminación de una radio
 if (isset($_GET['eliminar_radio'])) {
     $id_radio = $_GET['eliminar_radio'];
 
-    // Eliminar la radio de la base de datos
     $stmt = $conexion->prepare("DELETE FROM radio WHERE id_radio = ?");
     $stmt->bind_param("i", $id_radio);
     $stmt->execute();
     $stmt->close();
 
-    // Redirigir para actualizar la lista
     header("Location: admin.php");
     exit();
 }

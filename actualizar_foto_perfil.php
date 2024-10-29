@@ -6,7 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['nueva_foto_perfil'])
     $id_usuario = intval($_POST['id_usuario']);
     $nombre_usuario_actual = isset($_SESSION['nombre_usuario']) ? $_SESSION['nombre_usuario'] : null;
 
-    // Verifica si el usuario tiene permisos para actualizar la foto
     if ($id_usuario !== intval($_SESSION['id_usuario'])) {
         echo "<script>
         alert('No tienes permisos para actualizar esta foto de perfil.');
@@ -15,20 +14,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['nueva_foto_perfil'])
         exit;
     }
 
-    // Verifica si no hubo errores en la subida del archivo
     if ($_FILES['nueva_foto_perfil']['error'] === UPLOAD_ERR_OK) {
         $nombre_temporal = $_FILES['nueva_foto_perfil']['tmp_name'];
         $nombre_archivo = basename($_FILES['nueva_foto_perfil']['name']);
         $directorio_destino = 'uploads/perfil/';
         $ruta_archivo = $directorio_destino . $nombre_archivo;
 
-        // Mueve el archivo al directorio de destino
         if (move_uploaded_file($nombre_temporal, $ruta_archivo)) {
             $sql = "UPDATE usuarios SET foto_perfil = ? WHERE id_usuario = ?";
             $stmt = $conexion->prepare($sql);
             $stmt->bind_param("si", $nombre_archivo, $id_usuario);
 
-            // Si la actualización es exitosa, redirige al perfil
             if ($stmt->execute()) {
                 echo "<script>
                 window.location.href = 'perfil.php?id=" . $id_usuario . "';
