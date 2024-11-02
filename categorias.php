@@ -2,21 +2,13 @@
 session_start();
 include "conexion.php";
 
-// Definir cuántos hilos por página se mostrarán
 $hilosPorPagina = 8;
 
-// Obtener la categoría desde la URL y la página actual
 $id_categoria = isset($_GET['id']) ? intval($_GET['id']) : 0;
-if (isset($_GET['page']) && is_numeric($_GET['page'])) {
-    $paginaActual = (int) $_GET['page'];
-} else {
-    $paginaActual = 1;
-}
+$paginaActual = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
 
-// Calcular el offset para la consulta SQL
 $offset = ($paginaActual - 1) * $hilosPorPagina;
 
-// Consulta SQL para obtener las categorías
 $sql_categorias = "SELECT id_categoria, nombre FROM categorias ORDER BY nombre";
 $resultado_categorias = $conexion->query($sql_categorias);
 
@@ -28,11 +20,10 @@ if ($resultado_categorias === false) {
     exit;
 }
 
-// Consulta SQL con paginación para obtener los hilos de la categoría seleccionada
 $sql_hilos = "SELECT h.*, c.nombre AS categoria_nombre 
               FROM hilos h
               LEFT JOIN categorias c ON h.id_categoria = c.id_categoria
-              WHERE c.id_categoria = ? OR ? = 0
+              WHERE (c.id_categoria = ? OR ? = 0) AND h.eliminado = 0
               ORDER BY h.fecha_creacion DESC
               LIMIT ? OFFSET ?";
 $stmt = $conexion->prepare($sql_hilos);
@@ -55,8 +46,9 @@ if ($resultado_hilos === false) {
     exit;
 }
 
-// Obtener el número total de hilos en la categoría seleccionada (sin paginación)
-$sql_total_hilos = "SELECT COUNT(*) as total FROM hilos WHERE id_categoria = ? OR ? = 0";
+$sql_total_hilos = "SELECT COUNT(*) as total 
+                    FROM hilos 
+                    WHERE (id_categoria = ? OR ? = 0) AND eliminado = 0";
 $stmt_total = $conexion->prepare($sql_total_hilos);
 if ($stmt_total === false) {
     echo "<script>
@@ -70,10 +62,8 @@ $stmt_total->execute();
 $resultado_total_hilos = $stmt_total->get_result();
 $total_hilos = $resultado_total_hilos->fetch_assoc()['total'];
 
-// Calcular el número total de páginas
 $totalPaginas = ceil($total_hilos / $hilosPorPagina);
 
-// Obtener el nombre de la categoría seleccionada
 $nombre_categoria = "todas las categorías";
 if ($id_categoria > 0) {
     $sql_nombre_categoria = "SELECT nombre FROM categorias WHERE id_categoria = ?";
@@ -128,7 +118,6 @@ if ($id_categoria > 0) {
             <?php endif; ?>
         </div>
 
-        <!-- Paginación -->
         <div class="pagination">
             <?php if ($paginaActual > 1): ?>
                 <a href="categorias.php?id=<?php echo $id_categoria; ?>&page=<?php echo $paginaActual - 1; ?>">&laquo;

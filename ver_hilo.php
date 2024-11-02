@@ -75,7 +75,6 @@ while ($comentario = $result_comentarios->fetch_assoc()) {
 
     $contenido_convertido = $parsedown->text($comentario['contenido']);
 
-    // Añadir el campo 'eliminado' al array formateado
     $comentarios_formateados[] = [
         'id_comentario' => $comentario['id_comentario'],
         'nombre_usuario' => htmlspecialchars($comentario['nombre_usuario']),
@@ -84,7 +83,7 @@ while ($comentario = $result_comentarios->fetch_assoc()) {
         'contenido' => $contenido_convertido,
         'imagen_ruta' => htmlspecialchars($comentario['imagen_ruta']),
         'foto_perfil' => htmlspecialchars($comentario['foto_perfil']),
-        'eliminado' => isset($comentario['eliminado']) ? $comentario['eliminado'] : 0 // Asegurar que exista el campo 'eliminado'
+        'eliminado' => isset($comentario['eliminado']) ? $comentario['eliminado'] : 0
     ];
 }
 
@@ -188,7 +187,6 @@ $conexion->close();
                         <!-- Contenedor del contador de FPS -->
                         <div id="fps-counter"
                             style="position: absolute; top: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.5); color: white; padding: 5px; border-radius: 5px;">
-                            <!-- Aquí se inyectarán las estadísticas (FPS) mediante JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -200,12 +198,18 @@ $conexion->close();
             </div>
         </div>
 
+        <hr>
+
         <h2 class="center-text">Comentarios</h2>
 
         <?php include "comentario.php"; ?>
 
         <h2 class="center-text">Agregar Comentario</h2>
+
         <form action="agregar_comentario.php" method="POST" enctype="multipart/form-data" class="comment-form">
+            <label for="comentario">Puedes usar <a href="https://www.markdownguide.org/extended-syntax/">Markdown</a>
+                para dar formato a tus
+                textos</label>
             <input type="hidden" name="id_hilo" value="<?php echo htmlspecialchars($id_hilo); ?>">
             <textarea style="color: rgb(29, 29, 29);" class="comment-form" id="contenido" name="contenido" rows="10"
                 cols="50" required></textarea>
@@ -241,40 +245,32 @@ $conexion->close();
             function init() {
                 container = document.getElementById('obj-viewer');
 
-                // Inicialización de la escena y renderizado
                 scene = new THREE.Scene();
 
-                // Cámara ajustada para mejor vista
                 camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 1, 10000);
                 camera.position.z = 1000;
 
-                // Configurar el renderizador con fondo blanco
                 renderer = new THREE.WebGLRenderer({ antialias: true });
-                renderer.setClearColor(0x000000); // Fondo negro
+                renderer.setClearColor(0x000000);
 
                 renderer.setPixelRatio(window.devicePixelRatio);
                 renderer.setSize(container.clientWidth, container.clientHeight);
                 container.appendChild(renderer.domElement);
 
-                // Contador de FPS
                 stats = new Stats();
                 container.appendChild(stats.dom);
 
-                // Luces
-                const ambientLight = new THREE.AmbientLight(0x404040, 0.5);  // Luz ambiental más fuerte
+                const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
                 scene.add(ambientLight);
 
                 const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.5);
                 directionalLight1.position.set(1, 1, 1).normalize();
                 scene.add(directionalLight1);
 
-                // Añadir otra luz direccional desde otro ángulo
                 const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
                 directionalLight2.position.set(-1, -1, -1).normalize();
                 scene.add(directionalLight2);
-                
 
-                // Controles orbitales
                 controls = new OrbitControls(camera, renderer.domElement);
                 controls.enableDamping = true;
                 controls.dampingFactor = 0.25;
@@ -282,7 +278,6 @@ $conexion->close();
 
                 window.addEventListener('resize', onWindowResize);
 
-                // Cargar el modelo OBJ
                 loadOBJModel('<?php echo htmlspecialchars($hilo['obj_ruta']); ?>');
             }
 
@@ -297,16 +292,14 @@ $conexion->close();
 
                         mesh = object;
 
-                        // Hacer que las caras sean visibles desde ambos lados
                         mesh.traverse(function (child) {
                             if (child.isMesh) {
-                                child.material.side = THREE.DoubleSide;  // Activar doble cara para todas las geometrías
+                                child.material.side = THREE.DoubleSide;
                             }
                         });
 
                         scene.add(mesh);
 
-                        // Ajustar la posición y tamaño del modelo
                         const box = new THREE.Box3().setFromObject(mesh);
                         const size = box.getSize(new THREE.Vector3());
                         const center = box.getCenter(new THREE.Vector3());
@@ -315,11 +308,10 @@ $conexion->close();
                         mesh.position.y = -center.y;
                         mesh.position.z = -center.z;
 
-                        // Calcular la distancia de la cámara para asegurar que todo el modelo esté visible
                         const maxDim = Math.max(size.x, size.y, size.z);
                         const fov = camera.fov * (Math.PI / 180);
                         let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-                        camera.position.set(0, 0, cameraZ * 1.2); // Ajuste de distancia de la cámara
+                        camera.position.set(0, 0, cameraZ * 1.2);
                         camera.lookAt(new THREE.Vector3(0, 0, 0));
                         controls.update();
                     },

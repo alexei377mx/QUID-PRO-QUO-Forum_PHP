@@ -209,6 +209,4 @@ $conexion->close();
     </script>
 </body>
 
-<?php include "footer.php"; ?>
-
 </html>

@@ -1,14 +1,37 @@
 <?php
 session_start();
 include "conexion.php";
-?>
 
-<?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre_usuario = trim($_POST['nombre_usuario']);
     $email = trim($_POST['email']);
     $contrasena = $_POST['contrasena'];
     $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+
+    $dominios_permitidos = [
+        "gmail.com",
+        "hotmail.com",
+        "yahoo.com",
+        "outlook.com",
+        "icloud.com",
+        "aol.com",
+        "zoho.com",
+        "mail.com",
+        "yandex.com",
+        "protonmail.com",
+        "gmx.com",
+        "live.com",
+        "msn.com"
+    ];
+    $email_dominio = substr(strrchr($email, "@"), 1);
+
+    if (!in_array($email_dominio, $dominios_permitidos)) {
+        echo "<script>
+            alert('Por favor, utiliza un email de un dominio permitido.');
+            window.location.href = 'registro.php';
+        </script>";
+        exit();
+    }
 
     if (!empty($nombre_usuario) && !empty($email) && !empty($contrasena)) {
         $sql = "SELECT id_usuario FROM usuarios WHERE nombre_usuario = ? OR email = ?";
@@ -18,12 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id);
-            $stmt->fetch();
             echo "<script>
-        alert('El nombre de usuario o el correo electrónico ya están en uso.');
-        window.location.href = 'registro.php';
-    </script>";
+                alert('El nombre de usuario o el correo electrónico ya están en uso.');
+                window.location.href = 'registro.php';
+            </script>";
         } else {
             $sql = "INSERT INTO usuarios (nombre_usuario, email, contrasena) VALUES (?, ?, ?)";
             $stmt = $conexion->prepare($sql);
@@ -54,14 +75,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
     } else {
         echo "<script>
-        alert('Todos los campos son obligatorios.');
-        window.location.href = 'registro.php';
-    </script>";
+            alert('Todos los campos son obligatorios.');
+            window.location.href = 'registro.php';
+        </script>";
     }
 }
 
 $conexion->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -106,7 +128,5 @@ $conexion->close();
         </form>
     </div>
 </body>
-
-<?php include "footer.php"; ?>
 
 </html>

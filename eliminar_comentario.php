@@ -6,7 +6,6 @@ if ($_SESSION['nombre_usuario'] === 'admin') {
     if (isset($_GET['id_comentario'])) {
         $id_comentario = intval($_GET['id_comentario']);
 
-        // Obtener el id del usuario al que pertenece el comentario
         $sqlUsuarioComentario = "SELECT id_usuario FROM comentarios WHERE id_comentario = ?";
         $stmtUsuarioComentario = $conexion->prepare($sqlUsuarioComentario);
         $stmtUsuarioComentario->bind_param("i", $id_comentario);
@@ -17,13 +16,11 @@ if ($_SESSION['nombre_usuario'] === 'admin') {
         if ($rowUsuarioComentario) {
             $id_usuario = $rowUsuarioComentario['id_usuario'];
 
-            // Marcar el comentario como eliminado
             $sql = "UPDATE comentarios SET eliminado = 1 WHERE id_comentario = ?";
             $stmt = $conexion->prepare($sql);
             $stmt->bind_param("i", $id_comentario);
 
             if ($stmt->execute()) {
-                // Incrementar la advertencia para el usuario en la tabla usuarios
                 $sqlAdvertencias = "UPDATE usuarios SET advertencias = advertencias + 1 WHERE id_usuario = ?";
                 $stmtAdvertencias = $conexion->prepare($sqlAdvertencias);
                 $stmtAdvertencias->bind_param("i", $id_usuario);

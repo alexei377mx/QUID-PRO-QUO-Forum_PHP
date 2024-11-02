@@ -100,7 +100,6 @@ if (isset($_GET['eliminar_radio'])) {
     exit();
 }
 
-// Obtener todas las radios de la base de datos
 $result_radios = $conexion->query("SELECT * FROM radio");
 ?>
 
@@ -133,9 +132,9 @@ $result_radios = $conexion->query("SELECT * FROM radio");
                     <select name="tipo_objeto" id="tipo_objeto" class="container">
                         <option value="">Todos</option>
                         <option value="hilo" <?php if ($tipo_objeto == 'hilo')
-                                                    echo 'selected'; ?>>Hilos</option>
+                            echo 'selected'; ?>>Hilos</option>
                         <option value="comentario" <?php if ($tipo_objeto == 'comentario')
-                                                        echo 'selected'; ?>>Comentarios
+                            echo 'selected'; ?>>Comentarios
                         </option>
                     </select>
                 </div>
@@ -206,7 +205,6 @@ $result_radios = $conexion->query("SELECT * FROM radio");
             <input type="submit" value="Agregar Radio" class="button primary">
         </form>
 
-        <!-- Listado de radios existentes -->
         <?php if ($result_radios->num_rows > 0): ?>
             <br>
             <table class="table">
@@ -240,8 +238,6 @@ $result_radios = $conexion->query("SELECT * FROM radio");
             <p>No hay radios registradas.</p>
         <?php endif; ?>
 
-
-        <!-- Cerrar conexión -->
         <?php $conexion->close(); ?>
     </div>
 </body>

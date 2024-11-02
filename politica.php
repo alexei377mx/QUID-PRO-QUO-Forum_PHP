@@ -75,7 +75,7 @@ $parsedown = new Parsedown();
             <p>Los moderadores tienen la autoridad para editar, eliminar o bloquear cualquier contenido que infrinja estas políticas. También pueden emitir advertencias o suspender temporalmente a los usuarios que incumplan las reglas.</p>
 
             <h3>5.2. Apelaciones</h3>
-            <p>Si un usuario considera que una decisión de moderación ha sido injusta, puede presentar una apelación enviando un correo a [correo de contacto]. El equipo de administración revisará el caso y dará una respuesta final.</p>
+            <p>Si un usuario considera que una decisión de moderación ha sido injusta, puede presentar una apelación enviando un correo a quidproquo@forum.com. El equipo de administración revisará el caso y dará una respuesta final.</p>
 
             <h2>6. Cambios en las Políticas</h2>
             <h3>6.1. Modificaciones</h3>

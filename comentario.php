@@ -41,7 +41,7 @@
                     </div>
                     <div class="comment-content">
                         <div class="row">
-                            <?php if (!empty($comentario['imagen_ruta']) && !$comentario['eliminado']): // Mostrar imagen solo si no está eliminado ?>
+                            <?php if (!empty($comentario['imagen_ruta']) && !$comentario['eliminado']): ?>
                                 <div class="col-is-left">
                                     <div class="imagen-comentario">
                                         <img src="<?php echo htmlspecialchars($comentario['imagen_ruta']); ?>"
@@ -51,7 +51,7 @@
                             <?php endif; ?>
 
                             <div class="col">
-                                <?php if ($comentario['eliminado']): // Mostrar mensaje si el comentario ha sido eliminado ?>
+                                <?php if ($comentario['eliminado']): ?>
                                     <p><em>Este comentario fue eliminado por el administrador</em></p>
                                 <?php else: ?>
                                     <p><?php echo $comentario['contenido']; ?></p>

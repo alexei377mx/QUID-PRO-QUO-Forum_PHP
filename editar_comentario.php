@@ -2,7 +2,6 @@
 session_start();
 include "conexion.php";
 
-// Verifica si el usuario ha iniciado sesión
 if (!isset($_SESSION['id_usuario'])) {
     echo "<script>
         alert('Debes iniciar sesión para editar un comentario.');
@@ -15,7 +14,6 @@ $id_usuario = $_SESSION['id_usuario'];
 $id_comentario = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $id_hilo = isset($_GET['hilo_id']) ? intval($_GET['hilo_id']) : 0;
 
-// Consulta para verificar si el comentario pertenece al usuario
 $sql = "SELECT * FROM comentarios WHERE id_comentario = ? AND id_usuario = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("ii", $id_comentario, $id_usuario);
@@ -37,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $eliminar_imagen = isset($_POST['eliminar_imagen']) ? true : false;
     $nueva_imagen_ruta = $comentario['imagen_ruta'];
 
-    // Verifica si el contenido no está vacío
     if (empty($contenido)) {
         echo "<script>
             alert('El contenido no puede estar vacío.');
@@ -46,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    // Elimina la imagen si el usuario lo solicita
     if ($eliminar_imagen && !empty($comentario['imagen_ruta'])) {
         if (file_exists($comentario['imagen_ruta'])) {
             unlink($comentario['imagen_ruta']);
@@ -54,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nueva_imagen_ruta = null;
     }
 
-    // Verifica si se ha subido una nueva imagen
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
         $imagen = $_FILES['imagen'];
         $nombre_imagen = basename($imagen['name']);
@@ -63,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tipos_permitidos = ['image/jpeg', 'image/png', 'image/gif'];
         if (in_array($imagen['type'], $tipos_permitidos)) {
             if (move_uploaded_file($imagen['tmp_name'], $ruta_destino)) {
-                // Elimina la imagen anterior si existe
                 if (!empty($comentario['imagen_ruta']) && file_exists($comentario['imagen_ruta'])) {
                     unlink($comentario['imagen_ruta']);
                 }
@@ -84,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Actualiza el comentario en la base de datos
     $sql_update = "UPDATE comentarios SET contenido = ?, imagen_ruta = ?, fecha_edicion = NOW() WHERE id_comentario = ?";
     $stmt_update = $conexion->prepare($sql_update);
     $stmt_update->bind_param("ssi", $contenido, $nueva_imagen_ruta, $id_comentario);

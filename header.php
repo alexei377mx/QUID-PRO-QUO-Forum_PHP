@@ -1,10 +1,9 @@
 <?php
 include "conexion.php";
 
-// Obtener categorías de la base de datos
 $sql_categorias = "SELECT id_categoria, nombre FROM categorias";
 $result_categorias = $conexion->query($sql_categorias);
-// Consulta para obtener las radios
+
 $sql_radios = "SELECT * FROM radio";
 $resultado_radios = $conexion->query($sql_radios);
 
@@ -12,7 +11,6 @@ if ($resultado_radios === false) {
     die("Error al obtener las radios: " . $conexion->error);
 }
 
-// Convertir los resultados de las radios en un arreglo de PHP para usarlo en JavaScript
 $radios = [];
 while ($radio = $resultado_radios->fetch_assoc()) {
     $radios[] = $radio;
@@ -32,27 +30,24 @@ while ($radio = $resultado_radios->fetch_assoc()) {
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Ícono del foro -->
     <link rel="icon" href="style/file-1t53CpMro539FfpGYoSEO6Hd.jpg" type="image/png">
 </head>
 
 <body>
     <header>
-        <!-- Título del foro -->
         <div style="display: flex; align-items: center;">
-            <img src="style/file-1t53CpMro539FfpGYoSEO6Hd.jpg" alt="Logo del foro"
-                style="width: 40px; height: 40px; margin-right: 10px;">
-            <h4><a href="index.php">Quid Pro Quo FORUM</a></h4>
+            <a href="index.php" style="display: flex; align-items: center;">
+                <img src="style/file-1t53CpMro539FfpGYoSEO6Hd.jpg" alt="Logo del foro"
+                    style="width: 40px; height: 40px; margin-right: 10px;">
+                <h4>Quid Pro Quo FORUM</h4>
+            </a>
         </div>
-
-        <!-- Reproductor de radio con botones "Siguiente" y "Anterior" -->
         <div>
             <audio id="reproductor" hidden autoplay>
                 <source id="audioSource" src="" type="audio/mpeg">
                 Tu navegador no soporta el elemento de audio.
             </audio>
 
-            <!-- Botones para cambiar de emisora -->
             <div style="display: flex; flex-direction: column; align-items: center;">
                 <div class="radio-controls">
                     <div class="row">
@@ -60,7 +55,6 @@ while ($radio = $resultado_radios->fetch_assoc()) {
                             <img src="https://icongr.am/feather/skip-back.svg?size=15&color=currentColor"
                                 alt="Anterior">
                         </button>
-                        <!-- Botón Mute/Unmute -->
                         <button onclick="toggleMute()" id="muteButton" class="button">
                             <img id="muteIcon" src="https://icongr.am/feather/volume-2.svg?size=15&color=currentColor"
                                 alt="Mute">
@@ -72,25 +66,18 @@ while ($radio = $resultado_radios->fetch_assoc()) {
                     </div>
                 </div>
 
-                <!-- Nombre de la radio en pequeño -->
                 <small id="nombreRadio" style="margin-top: 5px; font-size: 12px; color: #333;"></small>
             </div>
         </div>
 
-
-        <!-- Menú "hamburguesa" para móvil -->
-        <!-- Botón para abrir el menú móvil -->
-        <!-- Botón para abrir el menú móvil con icono -->
-        <!-- Botón para abrir el menú móvil con icono, solo visible en móviles -->
         <button id="menuButton" class="button hide-md">
             <img src="https://icongr.am/feather/menu.svg?size=15&color=currentColor" alt="Menú">
         </button>
 
-        <!-- Navegación para escritorio -->
         <nav>
             <?php if (isset($_SESSION['nombre_usuario'])): ?>
                 <p style="color: rgb(29, 29, 29);">Hola, <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?>!</p>
-                <!-- Mostrar categorías solo si el usuario ha iniciado sesión -->
+
                 <div class="menu">
                     <p class="button">Categorías</p>
                     <div class="menu-content">
@@ -104,7 +91,7 @@ while ($radio = $resultado_radios->fetch_assoc()) {
                 <p><a href="crear_hilo.php" class="button primary">Crear un nuevo hilo</a></p>
 
                 <?php if ($_SESSION['nombre_usuario'] === 'admin'): ?>
-                    <p><a href="admin.php" class="button dark">Panel de Administración</a></p>
+                    <p><a href="admin.php" class="button dark">Administración</a></p>
                 <?php endif; ?>
 
                 <div class="menu">
@@ -121,12 +108,11 @@ while ($radio = $resultado_radios->fetch_assoc()) {
             <div class="col"></div>
 
             <!-- Ícono de modo oscuro/claro -->
-            <button id="darkModeToggle" class="button secondary">
-                <i class="fas fa-moon"></i> <!-- Ícono por defecto -->
-            </button>
+            <!--     <button id="darkModeToggle" class="button secondary">
+                <i class="fas fa-moon"></i>
+            </button> -->
         </nav>
 
-        <!-- Menú desplegable para móvil -->
         <div class="mobile-menu" id="mobileMenu">
             <?php if (isset($_SESSION['nombre_usuario'])): ?>
                 <p>Hola, <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?>!</p>
@@ -160,7 +146,6 @@ while ($radio = $resultado_radios->fetch_assoc()) {
         const rootElement = document.documentElement;
         const darkModeIcon = darkModeToggle.querySelector('i');
 
-        // Chequea si el usuario tiene una preferencia guardada
         const currentTheme = localStorage.getItem('theme') || 'light';
         if (currentTheme === 'dark') {
             rootElement.classList.add('dark-mode');
@@ -183,25 +168,21 @@ while ($radio = $resultado_radios->fetch_assoc()) {
         });
     </script>
     <script>
-        // Radios desde PHP
         var radios = <?php echo json_encode($radios); ?>;
-        var indiceActual = 0;  // Índice de la emisora seleccionada actualmente
+        var indiceActual = 0;
 
-        // Verificar si hay una emisora guardada en localStorage
         document.addEventListener("DOMContentLoaded", function () {
             var reproductor = document.getElementById("reproductor");
             var audioSource = document.getElementById("audioSource");
             var nombreRadio = document.getElementById("nombreRadio");
 
-            // Si hay una emisora guardada, usarla
             var savedRadioIndex = localStorage.getItem("selectedRadioIndex");
             if (savedRadioIndex !== null) {
                 indiceActual = parseInt(savedRadioIndex, 10);
             }
 
-            // Establecer la emisora y el nombre en el reproductor
             audioSource.src = radios[indiceActual].url;
-            nombreRadio.textContent = radios[indiceActual].nombre; // Mostrar el nombre de la radio
+            nombreRadio.textContent = radios[indiceActual].nombre;
             reproductor.load();
             reproductor.play().catch(function () {
                 console.log("Autoplay bloqueado, esperando interacción del usuario.");
@@ -216,57 +197,51 @@ while ($radio = $resultado_radios->fetch_assoc()) {
             var audioSource = document.getElementById("audioSource");
             var nombreRadio = document.getElementById("nombreRadio");
 
-            // Cambiar la fuente del reproductor y el nombre de la radio
             audioSource.src = radios[indiceActual].url;
-            nombreRadio.textContent = radios[indiceActual].nombre; // Actualizar el nombre de la radio
+            nombreRadio.textContent = radios[indiceActual].nombre;
             reproductor.load();
             reproductor.play();
 
-            // Guardar la emisora seleccionada en localStorage
             localStorage.setItem("selectedRadioIndex", indiceActual);
         }
 
         function cambiarEmisoraSiguiente() {
-            indiceActual = (indiceActual + 1) % radios.length;  // Ir al inicio si es la última emisora
+            indiceActual = (indiceActual + 1) % radios.length;
             actualizarEmisora();
         }
 
         function cambiarEmisoraAnterior() {
-            indiceActual = (indiceActual - 1 + radios.length) % radios.length;  // Ir al final si es la primera emisora
+            indiceActual = (indiceActual - 1 + radios.length) % radios.length;
             actualizarEmisora();
         }
 
-        // Función para alternar el estado de mute
-        // Función para alternar el estado de mute
         function toggleMute() {
             var reproductor = document.getElementById("reproductor");
             var muteIcon = document.getElementById("muteIcon");
 
             if (reproductor.muted) {
                 reproductor.muted = false;
-                muteIcon.src = "https://icongr.am/feather/volume-2.svg?size=15&color=currentColor"; // Cambiar a volumen activo
-                localStorage.setItem("isMuted", "false"); // Guardar el estado en localStorage
+                muteIcon.src = "https://icongr.am/feather/volume-2.svg?size=15&color=currentColor";
+                localStorage.setItem("isMuted", "false");
             } else {
                 reproductor.muted = true;
-                muteIcon.src = "https://icongr.am/feather/volume-x.svg?size=15&color=currentColor"; // Cambiar a mute
-                localStorage.setItem("isMuted", "true"); // Guardar el estado en localStorage
+                muteIcon.src = "https://icongr.am/feather/volume-x.svg?size=15&color=currentColor";
+                localStorage.setItem("isMuted", "true");
             }
         }
 
-        // Restaurar el estado de mute cuando se carga la página
         document.addEventListener("DOMContentLoaded", function () {
             var reproductor = document.getElementById("reproductor");
             var muteIcon = document.getElementById("muteIcon");
 
-            // Verificar si el estado de mute está guardado en localStorage
             var isMuted = localStorage.getItem("isMuted");
 
             if (isMuted === "true") {
                 reproductor.muted = true;
-                muteIcon.src = "https://icongr.am/feather/volume-x.svg?size=15&color=currentColor"; // Cambiar a mute
+                muteIcon.src = "https://icongr.am/feather/volume-x.svg?size=15&color=currentColor";
             } else {
                 reproductor.muted = false;
-                muteIcon.src = "https://icongr.am/feather/volume-2.svg?size=15&color=currentColor"; // Cambiar a volumen activo
+                muteIcon.src = "https://icongr.am/feather/volume-2.svg?size=15&color=currentColor";
             }
         });
 

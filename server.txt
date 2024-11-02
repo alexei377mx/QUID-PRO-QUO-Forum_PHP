@@ -1,0 +1,32 @@
+FTP Hostname
+ftpupload.net
+
+FTP Username
+if0_36440075
+
+FTP Password
+0hL3vMGCnFoTTA
+
+FTP Port (optional)
+21
+-------------------------
+MYSQL USERNAME
+if0_36440075
+
+MYSQL PASSWORD
+0hL3vMGCnFoTTA
+
+MYSQL DATABASE NAME
+if0_36440075_foro1
+
+MYSQL HOSTNAME
+sql209.infinityfree.com
+-------------------------
+dash.infinityfree.com
+
+alexei377.2017@gmail.com
+D3YkL-@X&R%xB+M
+
+-------------------------
+
+https://quidproquo.great-site.net/

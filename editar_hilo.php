@@ -1,8 +1,7 @@
-<?php 
+<?php
 session_start();
 include "conexion.php";
 
-// Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['id_usuario'])) {
     echo "<script>
         alert('Debes iniciar sesión para editar un hilo.');
@@ -13,10 +12,8 @@ if (!isset($_SESSION['id_usuario'])) {
 
 $id_usuario = $_SESSION['id_usuario'];
 
-// Verificar si se ha proporcionado un ID de hilo válido
 $id_hilo = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Consulta para verificar si el hilo pertenece al usuario actual
 $sql = "SELECT * FROM hilos WHERE id_hilo = ? AND id_usuario = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("ii", $id_hilo, $id_usuario);
@@ -40,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nueva_imagen_ruta = $hilo['imagen_ruta'];
     $nuevo_obj_ruta = $hilo['obj_ruta'];
 
-    // Verifica si el título y el contenido no están vacíos
     if (empty($titulo) || empty($contenido)) {
         echo "<script>
             alert('El título y el contenido no pueden estar vacíos.');
@@ -49,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    // Eliminar la imagen o el archivo OBJ si se selecciona
     if ($eliminar_archivo) {
         if (!empty($hilo['imagen_ruta']) && file_exists($hilo['imagen_ruta'])) {
             unlink($hilo['imagen_ruta']);
@@ -61,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Verificar si se subieron ambos archivos (imagen y obj) al mismo tiempo
     if (!empty($_FILES['imagen']['name']) && !empty($_FILES['obj']['name'])) {
         echo "<script>
             alert('Error: No puedes subir una imagen y un archivo OBJ al mismo tiempo.');
@@ -69,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </script>";
         exit;
     } else {
-        // Proceso para manejar la imagen
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
             $imagen = $_FILES['imagen'];
             $nombre_imagen = basename($imagen['name']);
@@ -86,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         unlink($hilo['imagen_ruta']);
                     }
                     $nueva_imagen_ruta = $ruta_destino_imagen;
-                    $nuevo_obj_ruta = null; // Eliminar cualquier archivo .obj anterior si se sube una imagen nueva
+                    $nuevo_obj_ruta = null;
                 } else {
                     echo "<script>
                         alert('Error al mover el archivo de imagen.');
@@ -103,13 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        // Proceso para manejar el archivo OBJ (máximo 10 MB)
         if (isset($_FILES['obj']) && $_FILES['obj']['error'] == 0) {
             $obj = $_FILES['obj'];
             $nombre_obj = basename($obj['name']);
             $ruta_destino_obj = 'uploads/obj/' . $nombre_obj;
 
-            // Verificar si el archivo .obj no supera los 10 MB
             if ($obj['size'] > 10 * 1024 * 1024) {
                 echo "<script>
                     alert('Error: El archivo OBJ supera el límite de tamaño de 10 MB.');
@@ -117,7 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </script>";
                 exit;
             } else {
-                // Verificar si el archivo es un archivo .obj
                 if (mime_content_type($obj['tmp_name']) == 'application/x-tgif' || pathinfo($nombre_obj, PATHINFO_EXTENSION) === 'obj') {
                     if (!file_exists('uploads/obj/')) {
                         mkdir('uploads/obj/', 0777, true);
@@ -128,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             unlink($hilo['obj_ruta']);
                         }
                         $nuevo_obj_ruta = $ruta_destino_obj;
-                        $nueva_imagen_ruta = null; // Eliminar cualquier imagen anterior si se sube un archivo .obj nuevo
+                        $nueva_imagen_ruta = null;
                     } else {
                         echo "<script>
                             alert('Error al mover el archivo OBJ.');
@@ -146,7 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        // Actualizar el hilo en la base de datos
         $sql_update = "UPDATE hilos SET titulo = ?, contenido = ?, imagen_ruta = ?, obj_ruta = ?, fecha_edicion = NOW() WHERE id_hilo = ?";
         $stmt_update = $conexion->prepare($sql_update);
         $stmt_update->bind_param("ssssi", $titulo, $contenido, $nueva_imagen_ruta, $nuevo_obj_ruta, $id_hilo);

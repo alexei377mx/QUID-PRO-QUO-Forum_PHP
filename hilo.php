@@ -2,7 +2,6 @@
 
 include "conexion.php";
 
-// Función para calcular el tiempo transcurrido
 if (!function_exists('tiempoTranscurrido')) {
     function tiempoTranscurrido($fecha)
     {
@@ -27,7 +26,7 @@ if (!function_exists('tiempoTranscurrido')) {
 }
 
 $fecha = new DateTime($hilo['fecha_creacion']);
-// Formatear la fecha en "hace N tiempo"
+
 $fecha_formateada = tiempoTranscurrido($fecha->format('Y-m-d H:i:s'));
 
 $titulo_preview = mb_strimwidth($hilo['titulo'], 0, 100, '...');
@@ -46,10 +45,8 @@ $datos_adicionales = $result_datos_adicionales->fetch_assoc();
 $num_comentarios = $datos_adicionales['num_comentarios'];
 $fecha_ultimo_comentario = $datos_adicionales['fecha_ultimo_comentario'];
 
-// Si hay fecha de último comentario, mostrar el tiempo transcurrido
 $tiempo_ultimo_comentario = $fecha_ultimo_comentario ? tiempoTranscurrido($fecha_ultimo_comentario) : 'No hay comentarios aún';
 
-// Consulta para obtener los 3 comentarios más recientes del hilo
 $sql_comentarios = "SELECT contenido 
                     FROM comentarios 
                     WHERE id_hilo = ? AND eliminado = 0 
@@ -62,7 +59,6 @@ $result_comentarios = $stmt_comentarios->get_result();
 $comentarios = [];
 
 while ($comentario = $result_comentarios->fetch_assoc()) {
-    // Limitar los comentarios a 20 caracteres
     $comentarios[] = mb_strimwidth($comentario['contenido'], 0, 20, '...');
 }
 
@@ -87,7 +83,6 @@ while ($comentario = $result_comentarios->fetch_assoc()) {
         </p>
         <hr>
 
-        <!-- Mostrar los 3 comentarios más recientes -->
         <?php if (count($comentarios) > 0): ?>
             <div class="hilo-comentarios-recientes">
                 <h6>Comentarios recientes:</h6>

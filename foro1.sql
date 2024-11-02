@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2024 a las 17:16:36
+-- Tiempo de generación: 29-10-2024 a las 15:34:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -39,7 +39,7 @@ CREATE TABLE `categorias` (
 INSERT INTO `categorias` (`id_categoria`, `nombre`) VALUES
 (1, 'Sobre el foro'),
 (2, 'Modelos 3D'),
-(3, 'Diversión'),
+(3, 'General'),
 (4, 'Política'),
 (5, 'Películas / Series'),
 (6, 'Deportes'),
@@ -160,7 +160,8 @@ INSERT INTO `comentarios` (`id_comentario`, `id_hilo`, `id_usuario`, `contenido`
 (104, 11, 10, 'Comentario Prueba 😜😜😜😜😜😜', '2024-10-24 08:34:45', NULL, NULL, 0),
 (105, 11, 10, 'Imagen en comentario', '2024-10-24 08:35:21', '2024-10-24 08:51:59', 'uploads/comentarios/descarga (2).jpg', 0),
 (106, 24, 10, 'f', '2024-10-24 08:42:08', NULL, NULL, 0),
-(107, 44, 10, 'Haz dieta', '2024-10-24 08:51:31', '2024-10-24 08:53:23', NULL, 1);
+(107, 44, 10, 'Haz dieta', '2024-10-24 08:51:31', '2024-10-24 08:53:23', NULL, 1),
+(108, 45, 8, 's', '2024-10-29 08:03:41', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -210,7 +211,7 @@ INSERT INTO `hilos` (`id_hilo`, `id_usuario`, `titulo`, `contenido`, `fecha_crea
 (21, 1, 'Markdown', '> Markdown\r\n> I need to highlight these ==very important words==.\r\n\r\n| Syntax | Description|\r\n| -------- | --------------|\r\n| Header      | Title |\r\n| Paragraph   | Text |\r\n\r\n| Syntax      | Description | Test Text     |\r\n| :---        |    :----:   |          ---: |\r\n| Header      | Title       | Here\'s this   |\r\n| Paragraph   | Text        | And more      |', '2024-09-03 08:20:49', '2024-09-03 08:34:33', 3, 'uploads/hilos/eca456b6290cdf07cd4ccce525d3c780.jpg', 48, 0, NULL),
 (22, 4, 'XD', 'XD', '2024-09-03 08:55:46', NULL, 1, 'uploads/hilos/dolar.jpg', 7, 0, NULL),
 (23, 2, 'H', 'H', '2024-09-05 07:45:53', '2024-09-05 07:46:25', 1, 'uploads/hilos/Captura de pantalla (1).png', 2, 1, NULL),
-(24, 3, 'HILO IMG', 'IMG', '2024-09-05 08:51:50', '2024-10-17 07:33:41', 1, 'uploads/hilos/PracticaNo7_Longinos_Chavez_JoseManuel.png', 23, 0, NULL),
+(24, 3, 'HILO IMG', 'IMG', '2024-09-05 08:51:50', '2024-10-17 07:33:41', 1, 'uploads/hilos/PracticaNo7_Longinos_Chavez_JoseManuel.png', 24, 0, NULL),
 (25, 2, 'LOREMDFGDFGD', '> Lorem ipsum dolor sit amet consectetur adipiscing elit rhoncus vitae, nam magnis scelerisque ph\r\n\r\n# n quis non.', '2024-09-10 08:39:30', '2024-09-17 09:24:08', 2, NULL, 95, 0, NULL),
 (26, 1, 'dfgfdgfdg', 'dfgfdgfd', '2024-09-10 09:03:39', NULL, 2, NULL, 101, 0, NULL),
 (27, 2, 'Hilo', '> Cita', '2024-09-12 08:09:30', NULL, 2, 'uploads/hilos/descarga.jpg', 24, 1, NULL),
@@ -225,8 +226,9 @@ INSERT INTO `hilos` (`id_hilo`, `id_usuario`, `titulo`, `contenido`, `fecha_crea
 (40, 9, 'Hilo prueba', '> XD', '2024-10-22 08:15:53', NULL, 2, NULL, 9, 1, NULL),
 (41, 6, 'xd', 'sad', '2024-10-22 08:24:58', NULL, 3, NULL, 3, 1, NULL),
 (42, 4, 'f', 'sfd', '2024-10-22 08:41:23', NULL, 3, NULL, 1, 0, NULL),
-(43, 8, 'Modelo obj', '> OBJ: WOLF', '2024-10-22 09:05:11', '2024-10-24 07:36:51', 2, NULL, 68, 0, 'uploads/obj/wolf.obj'),
-(44, 10, 'Abro hilo: soy gordofóbico', '# xd', '2024-10-24 08:39:29', '2024-10-24 08:52:43', 2, 'uploads/hilos/descarga (2).jpg', 31, 1, NULL);
+(43, 8, 'Modelo obj', '> OBJ: WOLF', '2024-10-22 09:05:11', '2024-10-24 07:36:51', 2, NULL, 69, 0, 'uploads/obj/wolf.obj'),
+(44, 10, 'Abro hilo: soy gordofóbico', '# xd', '2024-10-24 08:39:29', '2024-10-24 08:52:43', 2, 'uploads/hilos/descarga (2).jpg', 31, 1, NULL),
+(45, 8, 'dsfsdf', 'sdfsdfsdfsdf', '2024-10-29 07:45:11', NULL, 1, 'uploads/hilos/Captura de pantalla (2).png', 4, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -402,13 +404,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT de la tabla `hilos`
 --
 ALTER TABLE `hilos`
-  MODIFY `id_hilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id_hilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `radio`

@@ -21,7 +21,6 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $usuario = $result->fetch_assoc();
 
-    // Modificar la consulta para no mostrar hilos eliminados
     $sql_hilos = "SELECT * FROM hilos WHERE id_usuario = ? AND eliminado = 0 ORDER BY fecha_creacion DESC";
     $stmt_hilos = $conexion->prepare($sql_hilos);
     $stmt_hilos->bind_param("i", $id_usuario);
@@ -61,7 +60,6 @@ function tiempoTranscurrido($fecha)
 $tiempo_registro = tiempoTranscurrido($usuario['fecha_registro']);
 $tiempo_edicion = !empty($usuario['fecha_edicion']) ? tiempoTranscurrido($usuario['fecha_edicion']) : null;
 
-// Consulta para obtener los comentarios del usuario, excluyendo los eliminados
 $sql_comentarios = "SELECT c.*, h.titulo AS titulo_hilo FROM comentarios c 
                     INNER JOIN hilos h ON c.id_hilo = h.id_hilo 
                     WHERE c.id_usuario = ? AND c.eliminado = 0 
@@ -72,7 +70,6 @@ $stmt_comentarios->bind_param("i", $id_usuario);
 $stmt_comentarios->execute();
 $result_comentarios = $stmt_comentarios->get_result();
 
-// Consulta para obtener los comentarios del usuario, excluyendo los eliminados
 $sql_comentarios = "SELECT c.*, u.nombre_usuario, u.foto_perfil, h.titulo AS titulo_hilo 
                     FROM comentarios c 
                     INNER JOIN hilos h ON c.id_hilo = h.id_hilo 
@@ -182,14 +179,15 @@ $conexion->close();
                 <?php endif; ?>
             </div>
         </div>
-        <!-- <div class="container">
-            <h1 class="center-text">Mis Comentarios</h1>
+        <br>
+        <div class="container">
+            <h1 class="center-text">Mis comentarios</h1>
             <?php if (count($comentarios_formateados) > 0): ?>
                 <?php include "comentario.php"; ?>
             <?php else: ?>
-                <p>No has hecho ningún comentario.</p>
+                <p class="center-text">No has hecho ningún comentario.</p>
             <?php endif; ?>
-        </div> -->
+        </div>
     </div>
 </body>
 

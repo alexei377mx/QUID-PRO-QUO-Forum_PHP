@@ -2,20 +2,16 @@
 session_start();
 include "conexion.php";
 
-// Definir cuántos hilos por página se mostrarán
 $hilosPorPagina = 8;
 
-// Obtener la página actual desde el parámetro `page` en la URL, si no se proporciona será 1
 if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $paginaActual = (int) $_GET['page'];
 } else {
     $paginaActual = 1;
 }
 
-// Calcular el offset para la consulta SQL
 $offset = ($paginaActual - 1) * $hilosPorPagina;
 
-// Consulta SQL para obtener los hilos más recientes y los que tienen comentarios recientes
 $sql_hilos = "
     SELECT hilos.*, 
            GREATEST(hilos.fecha_creacion, IFNULL(MAX(comentarios.fecha_comentario), hilos.fecha_creacion)) AS ultima_actividad 
@@ -32,15 +28,12 @@ if ($resultado_hilos === false) {
     die("Error en la consulta: " . $conexion->error);
 }
 
-// Consulta para obtener el número total de hilos que no están eliminados
-$sql_total_hilos = "SELECT COUNT(*) as total FROM hilos WHERE eliminado = 0";
+$sql_total_hilos = "SELECT COUNT(*) as total FROM hilos WHERE eliminado = 0"; 
 $resultado_total_hilos = $conexion->query($sql_total_hilos);
 $total_hilos = $resultado_total_hilos->fetch_assoc()['total'];
 
-// Calcular el número total de páginas
 $totalPaginas = ceil($total_hilos / $hilosPorPagina);
 
-// Consulta para obtener las radios
 $sql_radios = "SELECT * FROM radio";
 $resultado_radios = $conexion->query($sql_radios);
 
@@ -48,7 +41,6 @@ if ($resultado_radios === false) {
     die("Error al obtener las radios: " . $conexion->error);
 }
 
-// Convertir los resultados de las radios en un arreglo de PHP para usarlo en JavaScript
 $radios = [];
 while ($radio = $resultado_radios->fetch_assoc()) {
     $radios[] = $radio;
@@ -87,7 +79,6 @@ while ($radio = $resultado_radios->fetch_assoc()) {
             <?php endif; ?>
         </div>
 
-        <!-- Paginación -->
         <div class="pagination">
             <?php if ($paginaActual > 1): ?>
                 <a href="index.php?page=<?php echo $paginaActual - 1; ?>">&laquo; Anterior</a>

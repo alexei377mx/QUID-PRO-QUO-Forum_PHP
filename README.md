@@ -1,6 +1,6 @@
 > # Documentación del Foro
 
-Este repositorio contiene los archivos PHP principales que implementan un foro en línea, con funcionalidades para la gestión de usuarios, hilos, comentarios, reportes y administración general. A continuación, se proporciona una guía completa de cada archivo, describiendo su propósito, funcionamiento, y manejo de errores.
+Este repositorio contiene los archivos PHP principales que implementan un foro en línea llamado QUID PRO QUO Forum, con funcionalidades para la gestión de usuarios, hilos, comentarios, reportes y administración general. A continuación, se proporciona una guía completa de cada archivo, describiendo su propósito, funcionamiento, y manejo de errores.
 
 ---
 
@@ -9,13 +9,13 @@ Este repositorio contiene los archivos PHP principales que implementan un foro e
  - [editar_comentario.php](#2-editar_comentariophp)
  - [editar_hilo.php](#3-editar_hilophp)
  - [eliminar_comentario.php](#4-eliminar_comentariophp)
-  - [actualizar_foto_perfil.php](#5-actualizar_foto_perfilphp)
+ - [actualizar_foto_perfil.php](#5-actualizar_foto_perfilphp)
  - [admin.php](#6-adminphp)
  - [agregar_comentario.php](#7-agregar_comentariophp)
  - [categorias.php](#8-categoriasphp)
  - [comentario.php](#9-comentariophp)
  - [conexion.php](#10-conexionphp)
-- [logout.php](#11-logoutphp)
+ - [logout.php](#11-logoutphp)
  - [perfil.php](#12-perfilphp)
  - [politica.php](#13-politicaphp)
  - [eliminar_hilo.php](#14-eliminar_hilophp)
@@ -31,8 +31,6 @@ Este repositorio contiene los archivos PHP principales que implementan un foro e
  - [registro.php](#24-registrophp)
 
 ---
-
-## Archivos Principales
 
 ### 1. `crear_hilo.php`
 **Descripción:**  
@@ -143,8 +141,6 @@ Configura la conexión con la base de datos.
 
 ---
 
-## Nuevos Archivos
-
 ### 11. `logout.php`
 **Descripción:**  
 Cierra la sesión del usuario actual.
@@ -235,8 +231,6 @@ Permite a los usuarios iniciar sesión.
 
 ---
 
-## Últimos Archivos Agregados
-
 ### 21. `reporte.php`
 **Descripción:**  
 Permite a los usuarios reportar hilos o comentarios.
@@ -277,4 +271,4 @@ Permite a los usuarios registrarse en el foro.
 
 ---
 
-Este documento proporciona una guía completa y detallada sobre la funcionalidad de cada archivo, para facilitar la administración y el desarrollo del foro en línea.
+> Este documento proporciona una guía completa y detallada sobre la funcionalidad de cada archivo, para facilitar la administración y el desarrollo del foro en línea.

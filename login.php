@@ -32,22 +32,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $usuario = $result->fetch_assoc();
 
             if (password_verify($contrasena, $usuario['contrasena'])) {
-                // Obtener el ID del usuario
                 $id_usuario = $usuario['id_usuario'];
-
-                // Contar el número de hilos y comentarios eliminados
-                $queryEliminados = "
-SELECT 
-    (SELECT COUNT(*) FROM comentarios WHERE id_usuario = ? AND eliminado = 1) AS comentarios_eliminados,
-    (SELECT COUNT(*) FROM hilos WHERE id_usuario = ? AND eliminado = 1) AS hilos_eliminados
-";
+                $queryEliminados = "SELECT 
+                    (SELECT COUNT(*) FROM comentarios WHERE id_usuario = ? AND eliminado = 1) AS comentarios_eliminados,
+                    (SELECT COUNT(*) FROM hilos WHERE id_usuario = ? AND eliminado = 1) AS hilos_eliminados";
 
                 $stmtEliminados = $conexion->prepare($queryEliminados);
                 if ($stmtEliminados === false) {
                     die('Error en la preparación de la consulta: ' . $conexion->error);
                 }
 
-                // Vincular el ID de usuario dos veces, una para cada subconsulta
                 $stmtEliminados->bind_param("ii", $id_usuario, $id_usuario);
                 $stmtEliminados->execute();
                 $resultEliminados = $stmtEliminados->get_result();
@@ -56,10 +50,8 @@ SELECT
                 $comentarios_eliminados = $rowEliminados['comentarios_eliminados'];
                 $hilos_eliminados = $rowEliminados['hilos_eliminados'];
 
-                // Total de advertencias
                 $total_eliminados = $comentarios_eliminados + $hilos_eliminados;
 
-                // Actualizar el número de advertencias del usuario en la tabla usuarios
                 $queryUpdateAdvertencias = "UPDATE usuarios SET advertencias = ? WHERE id_usuario = ?";
                 $stmtUpdateAdvertencias = $conexion->prepare($queryUpdateAdvertencias);
                 if ($stmtUpdateAdvertencias === false) {
@@ -69,9 +61,7 @@ SELECT
                 $stmtUpdateAdvertencias->bind_param("ii", $total_eliminados, $id_usuario);
                 $stmtUpdateAdvertencias->execute();
 
-                // Verificar si el usuario tiene 4 o más advertencias
                 if ($total_eliminados >= 4) {
-                    // Suspender al usuario
                     $querySuspender = "UPDATE usuarios SET activo = 0 WHERE id_usuario = ?";
                     $stmtSuspender = $conexion->prepare($querySuspender);
                     if ($stmtSuspender === false) {
@@ -81,20 +71,17 @@ SELECT
                     $stmtSuspender->bind_param("i", $id_usuario);
                     $stmtSuspender->execute();
 
-                    // Mostrar mensaje de suspensión
                     echo "<script>
-    alert('Tu cuenta ha sido suspendida por infringir las políticas de uso.\\nTienes $total_eliminados advertencias.\\nPor favor contacta con Soporte.');
-    window.location.href = 'login.php';
-</script>";
+                            alert('Tu cuenta ha sido suspendida por infringir las políticas de uso.\\nTienes $total_eliminados advertencias.\\nPor favor contacta con Soporte.');
+                            window.location.href = 'login.php';
+                        </script>";
                     exit();
                 } elseif ($total_eliminados > 0) {
-                    // Mostrar advertencia si tiene advertencias pero menos de 4
                     echo "<script>
-    alert('ADVERTENCIA: Tienes $total_eliminados advertencias de 4 por infringir políticas de uso.');
-</script>";
+                            alert('ADVERTENCIA: Tienes $total_eliminados advertencias de 4 por infringir políticas de uso.');
+                        </script>";
                 }
 
-                // Iniciar la sesión normalmente
                 $_SESSION['id_usuario'] = $usuario['id_usuario'];
                 $_SESSION['nombre_usuario'] = $usuario['nombre_usuario'];
                 header("Location: index.php");
@@ -166,16 +153,14 @@ SELECT
     </div>
 
     <script>
-        grecaptcha.ready(function () {
+        grecaptcha.ready(function() {
             grecaptcha.execute('6LchmTUqAAAAADSYfuXEbzeNWDjLcNouYe45NP1m', {
                 action: 'login'
-            }).then(function (token) {
+            }).then(function(token) {
                 document.getElementById('g-recaptcha-response').value = token;
             });
         });
     </script>
 </body>
-
-<?php include "footer.php"; ?>
 
 </html>

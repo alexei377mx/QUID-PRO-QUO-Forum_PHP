@@ -2,7 +2,6 @@
 session_start();
 include "conexion.php";
 
-// Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['id_usuario'])) {
     echo "<script>
         alert('Debes iniciar sesión para cambiar tu contraseña.');
@@ -17,9 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nueva_contrasena = $_POST['nueva_contrasena'];
     $confirmar_contrasena = $_POST['confirmar_contrasena'];
 
-    // Verifica que todos los campos estén completos
     if (!empty($contrasena_actual) && !empty($nueva_contrasena) && !empty($confirmar_contrasena)) {
-        // Verifica que la nueva contraseña y la confirmación coincidan
         if ($nueva_contrasena === $confirmar_contrasena) {
             $sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
             $stmt = $conexion->prepare($sql);
@@ -30,11 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($result->num_rows > 0) {
                 $usuario = $result->fetch_assoc();
 
-                // Verifica la contraseña actual
                 if (password_verify($contrasena_actual, $usuario['contrasena'])) {
                     $nueva_contrasena_hash = password_hash($nueva_contrasena, PASSWORD_DEFAULT);
 
-                    // Actualiza la contraseña en la base de datos
                     $sql_update = "UPDATE usuarios SET contrasena = ? WHERE id_usuario = ?";
                     $stmt_update = $conexion->prepare($sql_update);
                     $stmt_update->bind_param("si", $nueva_contrasena_hash, $_SESSION['id_usuario']);
@@ -136,7 +131,5 @@ $conexion->close();
         </form>
     </div>
 </body>
-
-<?php include "footer.php"; ?>
 
 </html>
