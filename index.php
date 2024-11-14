@@ -28,7 +28,7 @@ if ($resultado_hilos === false) {
     die("Error en la consulta: " . $conexion->error);
 }
 
-$sql_total_hilos = "SELECT COUNT(*) as total FROM hilos WHERE eliminado = 0"; 
+$sql_total_hilos = "SELECT COUNT(*) as total FROM hilos WHERE eliminado = 0";
 $resultado_total_hilos = $conexion->query($sql_total_hilos);
 $total_hilos = $resultado_total_hilos->fetch_assoc()['total'];
 
@@ -95,6 +95,7 @@ while ($radio = $resultado_radios->fetch_assoc()) {
                 <a href="index.php?page=<?php echo $paginaActual + 1; ?>">Siguiente &raquo;</a>
             <?php endif; ?>
         </div>
+        <br>
     </div>
 
 </body>

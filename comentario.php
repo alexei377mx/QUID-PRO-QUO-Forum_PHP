@@ -1,7 +1,7 @@
 <?php if (count($comentarios_formateados) > 0): ?>
     <ul class="comments-list">
         <?php foreach ($comentarios_formateados as $comentario): ?>
-            <div class="comment-item">
+            <div class="comment-item" id="comentario-<?php echo htmlspecialchars($comentario['id_comentario']); ?>">
                 <div class="comment-header">
                     <div class="row">
                         <div class="col">
@@ -26,7 +26,8 @@
                                 </p></strong>
                             </div>
                         <?php endif; ?>
-                        <?php if ($nombre_usuario_actual === $comentario['nombre_usuario'] && !$comentario['eliminado']): ?>
+                        <?php
+                        if ($nombre_usuario_actual === $comentario['nombre_usuario'] && !$comentario['eliminado'] && basename($_SERVER['PHP_SELF']) !== 'perfil.php'): ?>
                             <div class="col-1">
                                 <a href="editar_comentario.php?id=<?php echo htmlspecialchars($comentario['id_comentario']); ?>&hilo_id=<?php echo htmlspecialchars($id_hilo); ?>"
                                     class="button secondary"><img
@@ -34,9 +35,10 @@
                             </div>
                         <?php endif; ?>
 
-
                         <div class="col-1">
-                            <small>#<?php echo htmlspecialchars($comentario['id_comentario']); ?></small>
+                            <a href="#comentario-<?php echo htmlspecialchars($comentario['id_comentario']); ?>">
+                                <small>#<?php echo htmlspecialchars($comentario['id_comentario']); ?></small>
+                            </a>
                         </div>
                     </div>
                     <div class="comment-content">
@@ -61,14 +63,13 @@
                         <div class="row">
                             <div class="col"></div>
                             <div class="col-2">
-                                <?php if (isset($_SESSION['nombre_usuario']) && $_SESSION['nombre_usuario'] === 'admin' && !$comentario['eliminado']): ?>
+                                <?php if (isset($_SESSION['nombre_usuario']) && $_SESSION['nombre_usuario'] === 'admin' && !$comentario['eliminado'] && basename($_SERVER['PHP_SELF']) !== 'perfil.php'): ?>
                                     <a href="eliminar_comentario.php?id_comentario=<?php echo $comentario['id_comentario']; ?>&id_hilo=<?php echo $id_hilo; ?>"
                                         onclick="return confirm('¿Estás seguro de que deseas eliminar este comentario?');">
                                         <img src="https://icongr.am/feather/trash-2.svg?size=16&color=currentColor" alt="Eliminar">
                                         Eliminar comentario
                                     </a>
                                 <?php endif; ?>
-
 
                                 <?php if (!$comentario['eliminado']): ?>
                                     <a href="reporte.php?tipo=comentario&id=<?php echo htmlspecialchars($comentario['id_comentario']); ?>"

@@ -136,10 +136,9 @@ if ($id_categoria > 0) {
                     &raquo;</a>
             <?php endif; ?>
         </div>
+        <br>
     </div>
 </body>
-
-<?php include "footer.php"; ?>
 
 </html>
 

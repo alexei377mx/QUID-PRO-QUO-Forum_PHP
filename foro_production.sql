@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2024 a las 15:50:19
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Servidor: sql209.infinityfree.com
+-- Tiempo de generación: 07-11-2024 a las 10:01:39
+-- Versión del servidor: 10.6.19-MariaDB
+-- Versión de PHP: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `foro_production`
+-- Base de datos: `if0_36440075_foro_production`
 --
 
 -- --------------------------------------------------------
@@ -38,15 +39,15 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`id_categoria`, `nombre`) VALUES
 (1, 'Sobre el foro'),
-(2, 'Modelos 3D'),
-(3, 'General'),
-(4, 'Política'),
-(5, 'Películas / Series'),
+(2, 'General'),
+(3, 'Modelos 3D'),
+(4, 'Películas / Series'),
+(5, 'Anime / Manga'),
 (6, 'Deportes'),
-(7, 'Anime / Manga'),
+(7, 'Política'),
 (8, 'Educación'),
 (9, 'LGBTTTQI+'),
-(10, 'Comercio');
+(10, 'Ocio');
 
 -- --------------------------------------------------------
 
@@ -64,6 +65,13 @@ CREATE TABLE `comentarios` (
   `imagen_ruta` varchar(255) DEFAULT NULL,
   `eliminado` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`id_comentario`, `id_hilo`, `id_usuario`, `contenido`, `fecha_comentario`, `fecha_edicion`, `imagen_ruta`, `eliminado`) VALUES
+(1, 1, 1, '😀', '2024-10-31 08:26:55', '2024-11-02 13:24:16', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -90,7 +98,8 @@ CREATE TABLE `hilos` (
 --
 
 INSERT INTO `hilos` (`id_hilo`, `id_usuario`, `titulo`, `contenido`, `fecha_creacion`, `fecha_edicion`, `id_categoria`, `imagen_ruta`, `visitas`, `eliminado`, `obj_ruta`) VALUES
-(1, 1, 'Bienvenida', '# ¡Bienvenido/a al Foro! 🎉\r\n\r\n> Nos alegra que estés aquí para **compartir**, **aprender** y **debatir** en esta comunidad. Explora las categorías, encuentra temas de interés y no dudes en iniciar tus propias conversaciones.\r\n\r\n> **Consejo:** No olvides leer las [Políticas de uso justo](https://quidproquo.great-site.net/politica.php) para una convivencia respetuosa y enriquecedora para todos.\r\n\r\n¡Esperamos que disfrutes de la experiencia y contribuyas con tus ideas! 🚀', '2024-10-29 08:24:24', NULL, 1, NULL, 30, 0, NULL);
+(1, 1, 'Bienvenida', '# ¡Bienvenido/a al Foro! 🎉\r\n\r\n> Nos alegra que estés aquí para **compartir**, **aprender** y **debatir** en esta comunidad. Explora las categorías, encuentra temas de interés y no dudes en iniciar tus propias conversaciones.\r\n\r\n> **Consejo:** No olvides leer las [Políticas de uso justo](https://quidproquo.great-site.net/politica.php) para una convivencia respetuosa y enriquecedora para todos.\r\n\r\n¡Esperamos que disfrutes de la experiencia y contribuyas con tus ideas! 🚀', '2024-10-29 08:24:24', NULL, 1, NULL, 55, 0, NULL),
+(2, 1, 'Pruebiya', '# Titulo\r\nHola, asi es como se crea un *comentario* desde **interfaz**\r\n> Prueba de Quote', '2024-11-07 06:32:58', NULL, 2, NULL, 2, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -122,7 +131,8 @@ INSERT INTO `radio` (`id_radio`, `nombre`, `url`) VALUES
 (14, 'Naya Ballad - Soul Kpop (Broad) https://sCast.kr/', 'http://e79.kr/soul'),
 (15, 'Jazz Cafe', 'https://radio.wanderingsheep.net:8000/jazzcafe'),
 (16, 'Classical FM Radio', 'https://cheetah.streemlion.com:2460/stream'),
-(17, 'RadioMonster.FM - Evergreens (320kbps)', 'https://ic.radiomonster.fm/evergreens.ultra');
+(17, 'RadioMonster.FM - Evergreens (320kbps)', 'https://ic.radiomonster.fm/evergreens.ultra'),
+(20, 'Radio Disney 92.1 FM', 'https://26233.live.streamtheworld.com/XHFOFMAAC_SC');
 
 -- --------------------------------------------------------
 
@@ -136,7 +146,8 @@ CREATE TABLE `reportes` (
   `tipo_objeto` enum('hilo','comentario') NOT NULL,
   `id_objeto` int(11) NOT NULL,
   `motivo` varchar(255) NOT NULL,
-  `fecha_reporte` datetime DEFAULT current_timestamp()
+  `fecha_reporte` datetime DEFAULT current_timestamp(),
+  `revisado` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -224,19 +235,19 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `hilos`
 --
 ALTER TABLE `hilos`
-  MODIFY `id_hilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_hilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `radio`
 --
 ALTER TABLE `radio`
-  MODIFY `id_radio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_radio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `reportes`

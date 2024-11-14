@@ -2,7 +2,6 @@
 session_start();
 include "conexion.php";
 
-// Verifica si el usuario ha iniciado sesión
 if (!isset($_SESSION['id_usuario'])) {
     echo "<script>
         alert('Debes iniciar sesión para crear un hilo.');
@@ -19,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $imagen_ruta = null;
     $obj_ruta = null;
 
-    // Verificar si se subieron ambos archivos (imagen y obj) al mismo tiempo
     if (!empty($_FILES['imagen']['name']) && !empty($_FILES['obj']['name'])) {
         echo "<script>
             alert('Error: No puedes subir una imagen y un archivo OBJ al mismo tiempo.');
@@ -27,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </script>";
         exit;
     } else {
-        // Proceso para manejar la imagen
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
             $imagen = $_FILES['imagen'];
             $nombre_imagen = basename($imagen['name']);
@@ -57,13 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        // Proceso para manejar el archivo OBJ (máximo 10 MB)
         if (isset($_FILES['obj']) && $_FILES['obj']['error'] == 0) {
             $obj = $_FILES['obj'];
             $nombre_obj = basename($obj['name']);
             $ruta_destino_obj = 'uploads/obj/' . $nombre_obj;
 
-            // Verificar si el archivo .obj no supera los 10 MB
             if ($obj['size'] > 10 * 1024 * 1024) {
                 echo "<script>
                     alert('Error: El archivo OBJ supera el límite de tamaño de 10 MB.');
@@ -71,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </script>";
                 exit;
             } else {
-                // Verificar si el archivo es un archivo .obj
                 if (mime_content_type($obj['tmp_name']) == 'application/x-tgif' || pathinfo($nombre_obj, PATHINFO_EXTENSION) === 'obj') {
                     if (!file_exists('uploads/obj/')) {
                         mkdir('uploads/obj/', 0777, true);
@@ -96,7 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        // Inserción en la base de datos solo si el título y contenido no están vacíos
         if (!empty($titulo) && !empty($contenido)) {
             $sql = "INSERT INTO hilos (titulo, contenido, id_usuario, id_categoria, imagen_ruta, obj_ruta, fecha_creacion) 
                     VALUES (?, ?, ?, ?, ?, ?, NOW())";
@@ -127,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Obtener categorías desde la base de datos
 $resultado = $conexion->query("SELECT id_categoria, nombre FROM categorias");
 $categorias = [];
 if ($resultado->num_rows > 0) {

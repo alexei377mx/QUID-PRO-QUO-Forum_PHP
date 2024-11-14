@@ -100,7 +100,13 @@ while ($comentario = $result_comentarios->fetch_assoc()) {
                 <small><?php echo htmlspecialchars($num_comentarios); ?> comentarios</small>
             </div>
             <div class="col">
-                <small>Último comentario: hace <?php echo htmlspecialchars($tiempo_ultimo_comentario); ?></small>
+                <small>
+                    <?php if ($fecha_ultimo_comentario): ?>
+                        Último comentario: hace <?php echo htmlspecialchars($tiempo_ultimo_comentario); ?>
+                    <?php else: ?>
+                        Último comentario: No hay comentarios aún
+                    <?php endif; ?>
+                </small>
             </div>
         </div>
     </div>

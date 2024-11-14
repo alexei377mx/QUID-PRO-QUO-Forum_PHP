@@ -6,6 +6,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre_usuario = trim($_POST['nombre_usuario']);
     $email = trim($_POST['email']);
     $contrasena = $_POST['contrasena'];
+    $confirmar_contrasena = $_POST['confirmar_contrasena'];
+
+    if ($contrasena !== $confirmar_contrasena) {
+        echo "<script>
+            alert('Las contraseñas no coinciden. Por favor, verifica e intenta de nuevo.');
+            window.location.href = 'registro.php';
+        </script>";
+        exit();
+    }
+
     $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
 
     $dominios_permitidos = [
@@ -85,6 +95,7 @@ $conexion->close();
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -121,6 +132,11 @@ $conexion->close();
                 <input style="color: rgb(29, 29, 29);" class="comment-form" type="password" id="contrasena"
                     name="contrasena" required>
 
+                <label for="confirmar_contrasena">Confirmar Contraseña:</label>
+                <input style="color: rgb(29, 29, 29);" class="comment-form" type="password" id="confirmar_contrasena"
+                    name="confirmar_contrasena" required>
+
+                <br>
                 <button type="submit" class="button primary">Registrar</button>
 
                 <button><a href="login.php">Ya tengo cuenta. Iniciar sesión</a></button>

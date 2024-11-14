@@ -2,6 +2,9 @@
 session_start();
 include "conexion.php";
 
+require 'libs/Parsedown.php';
+$parsedown = new Parsedown();
+
 $id_usuario = isset($_GET['id']) ? intval($_GET['id']) : (isset($_SESSION['id_usuario']) ? intval($_SESSION['id_usuario']) : 0);
 
 if ($id_usuario === 0) {
@@ -85,10 +88,24 @@ $result_comentarios = $stmt_comentarios->get_result();
 $comentarios_formateados = [];
 
 while ($comentario = $result_comentarios->fetch_assoc()) {
-    $comentario['tiempo_comentario'] = tiempoTranscurrido($comentario['fecha_comentario']);
-    $comentario['tiempo_edicion'] = !empty($comentario['fecha_edicion']) ? tiempoTranscurrido($comentario['fecha_edicion']) : null;
-    $comentarios_formateados[] = $comentario;
+    $tiempo_comentario = tiempoTranscurrido($comentario['fecha_comentario']);
+    $tiempo_edicion_comentario = !empty($comentario['fecha_edicion']) ? tiempoTranscurrido($comentario['fecha_edicion']) : null;
+
+    $contenido_convertido = $parsedown->text($comentario['contenido']);
+
+    $comentarios_formateados[] = [
+        'id_comentario' => $comentario['id_comentario'],
+        'nombre_usuario' => htmlspecialchars($comentario['nombre_usuario']),
+        'tiempo_comentario' => $tiempo_comentario,
+        'tiempo_edicion' => $tiempo_edicion_comentario,
+        'contenido' => $contenido_convertido,
+        'imagen_ruta' => htmlspecialchars($comentario['imagen_ruta']),
+        'foto_perfil' => htmlspecialchars($comentario['foto_perfil']),
+        'titulo_hilo' => htmlspecialchars($comentario['titulo_hilo']),
+        'eliminado' => isset($comentario['eliminado']) ? $comentario['eliminado'] : 0
+    ];
 }
+
 
 $conexion->close();
 ?>

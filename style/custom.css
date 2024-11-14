@@ -1,71 +1,55 @@
-/* Estilo personalizado para hacer los botones más pequeños */
 .small-btn {
-    padding: 0.5rem 1rem; /* Tamaño reducido */
-    font-size: 1.2rem; /* Fuente más pequeña */
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
     line-height: 1;
 }
 
 .small-btn img {
-    width: 12px; /* Ajusta el tamaño de los íconos */
+    width: 12px;
     height: 12px;
 }
-
 
 .radio-player-container {
     text-align: center;
     margin: 20px 0;
 }
 
-
 .header {
     position: sticky;
-    /* Sticky header */
     top: 0;
 }
 
 .center-text {
     text-align: center;
-    /* Centra el texto horizontalmente */
     margin-top: 20px;
-    /* Espacio superior opcional para separar del contenido */
 }
 
-/* Asegúrate de que .hilos-grid tenga un diseño en cuadrícula */
 .hilos-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 3 columnas de igual ancho */
+    grid-template-columns: 1fr;
     gap: 1rem;
-    /* Espacio entre columnas */
     margin: 0 auto;
     padding: 1rem;
 }
 
-/* Estilo para cada hilo */
 .hilo,
 .container {
-    background-color: rgba(255, 255, 255, 0.25);
-    /* Fondo blanco con 25% de transparencia */
+    background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     backdrop-filter: blur(10px);
-    /* Desenfoque del fondo */
     margin-top: 0px;
     margin-bottom: 0px;
 }
 
 .transparent {
-    background-color: rgba(255, 255, 255, 0.25);
-    /* Fondo blanco con 25% de transparencia */
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
-    /* Desenfoque del fondo */
 }
 
-
-/* Estilos adicionales opcionales */
 .hilo-info {
     margin-bottom: 0.5rem;
 }
@@ -108,22 +92,19 @@
     margin: 0.2rem 0;
 }
 
-/* Agrega estilos para los comentarios */
 .comments-list {
     list-style-type: none;
     padding: 0;
 }
 
 .comment-item {
-    background-color: rgba(255, 255, 255, 0.2);
-    /* Fondo blanco con 25% de transparencia */
+    background-color: rgba(255, 255, 255, 0.25);
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-bottom: 1rem;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
-    /* Desenfoque del fondo */
 }
 
 .comment-header {
@@ -146,21 +127,17 @@
 
 .comment-form {
     background-color: rgba(255, 255, 255, 0.25);
-    /* Fondo blanco con 25% de transparencia */
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 1rem;
     margin-top: 1rem;
     backdrop-filter: blur(10px);
-    /* Desenfoque del fondo */
 }
 
 .comment-form textarea {
     margin-bottom: 1rem;
     background-color: rgba(255, 255, 255, 0.25);
-    /* Fondo blanco con 25% de transparencia */
     backdrop-filter: blur(10px);
-    /* Desenfoque del fondo */
 }
 
 .comment-form button {
@@ -179,7 +156,6 @@
     color: var(--color-darkGrey);
 }
 
-/* Estilos para los comentarios en los hilos */
 .comentarios {
     margin-top: 1rem;
     border-top: 1px solid #ddd;
@@ -203,55 +179,22 @@
     margin: 20px;
 }
 
-/* Estilo para la barra lateral (sidebar) */
-.sidebar {
-    background-color: rgba(255, 255, 255, 0.5);
-    /* Fondo blanco con 25% de transparencia */
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    /* Desenfoque del fondo */
-}
-
-
-/* Cambiar esto en custom.css */
 body {
     background-color: black;
-    /* Cambia el fondo a transparente para evitar conflictos */
-    /* mantener el resto de las propiedades */
     margin: 0;
     padding: 0;
 }
 
-/* body {
-    filter: invert(1);
-} */
-
-/* Excepciones de elementos que no queremos invertir (por ejemplo, imágenes) */
-
-/* img,
-video,
-iframe {
-    filter: invert(1);
-} */
-
 .comment-form textarea {
     margin-bottom: 1rem;
     background-color: transparent;
-    /* Fondo negro con 75% de transparencia */
     backdrop-filter: blur(10px);
-    /* Desenfoque del fondo */
     color: rgb(92, 92, 92);
-    /* Color del texto en gris claro */
     border: 1px solid #222;
     border-radius: 4px;
     padding: 0.5rem;
     font-family: inherit;
-    /* Mantiene la fuente consistente */
     font-size: 1em;
-    /* Ajusta el tamaño del texto si es necesario */
 }
 
 .hilo-adicional-info {
@@ -283,128 +226,18 @@ iframe {
     background-color: #ddd;
 }
 
-
-/* Modo oscuro - cambia solo los colores claros a oscuros */
-:root.dark-mode {
-    /* Cambiar fondos claros y blancos a oscuros */
-    --bg-color: #000000;
-    /* Fondo negro */
-    --bg-secondary-color: #1a1a1a;
-    /* Fondo secundario oscuro */
-    --color-lightGrey: #333333;
-    /* Gris claro a gris oscuro */
-
-    /* Textos de color claro o blanco a colores oscuros */
-    --font-color: #ffffff;
-    /* Cambiar el color del texto blanco a blanco brillante en fondos oscuros */
+@media (min-width: 800px) {
+    .hilos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-:root.dark-mode body {
-    background-color: var(--bg-color);
-    color: var(--font-color);
-    color: #fff;
+#categoria {
+    position: relative;
+    z-index: 1;
 }
 
-:root.dark-mode .header {
-    background-color: rgba(0, 0, 0, 0.75);
-    /* Cambia el fondo a negro con transparencia */
-    color: #fff;
-}
-
-:root.dark-mode .hilos-grid {
-    background-color: var(--bg-secondary-color);
-    /* Fondo de la cuadrícula */
-    color: #fff;
-    
-}
-
-:root.dark-mode .hilo,
-:root.dark-mode .container {
-    background-color: rgba(36, 36, 36, 0.75);
-    /* Fondo negro transparente */
-    border-color: #555555;
-    /* Borde oscuro */
-    color: #fff;
-}
-
-:root.dark-mode .transparent {
-    background-color: rgba(36, 36, 36, 0.75);
-    /* Fondo negro con desenfoque */
-}
-
-:root.dark-mode .comentarios,
-:root.dark-mode .comentario {
-    background-color: #1a1a1a;
-    /* Comentarios con fondo oscuro */
-    border-color: #ffffff;
-    /* Borde oscuro para los comentarios */
-    color: #fff;
-    /* Texto claro */
-}
-
-:root.dark-mode .comment-item {
-    background-color: rgba(36, 36, 36, 0.75);
-    /* Fondo oscuro para los comentarios */
-}
-
-:root.dark-mode .comment-form {
-    background-color: rgba(36, 36, 36, 0.75);
-    /* Fondo oscuro para el formulario de comentarios */
-    color: #fff;
-    /* Texto claro */
-}
-
-:root.dark-mode .comment-form textarea {
-    background-color: transparent;
-    /* Fondo transparente en modo oscuro */
-    color: #fff;
-    /* Texto blanco */
-    border-color: #444;
-    /* Borde oscuro */
-}
-
-:root.dark-mode .pagination a {
-    color: #fff;
-    /* Texto claro */
-    border-color: #444;
-    /* Bordes oscuros */
-}
-
-:root.dark-mode .sidebar {
-    background-color: rgba(36, 36, 36, 0.75);
-    /* Fondo oscuro para la barra lateral */
-    border-color: #444;
-    /* Borde oscuro */
-}
-
-/* Ajustar colores de los inputs en modo oscuro */
-:root.dark-mode input,
-:root.dark-mode textarea,
-:root.dark-mode select {
-    background-color: #222;
-    /* Fondo oscuro para los inputs */
-    color: #fff;
-    /* Texto blanco */
-    border: 1px solid #444;
-    /* Bordes oscuros */
-}
-
-:root.dark-mode .pagination a.active {
-    background-color: #444;
-    /* Color de fondo oscuro para la página activa */
-    color: white;
-}
-
-/* Cambiar colores del botón al modo oscuro */
-:root.dark-mode .button {
-    background-color: #444;
-    /* Fondo oscuro */
-    color: #fff;
-    /* Texto claro */
-}
-
-/* Cambiar colores de las etiquetas y otros textos decorativos */
-:root.dark-mode .hilo-titulo:hover {
-    color: #76c7c0;
-    /* Enlaces en modo oscuro */
+.emojionearea {
+    position: relative;
+    z-index: 10;
 }

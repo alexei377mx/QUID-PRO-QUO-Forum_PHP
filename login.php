@@ -143,9 +143,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input style="color: rgb(29, 29, 29);" class="comment-form" type="password" id="contrasena"
                     name="contrasena" required>
 
-                <!-- Campo oculto para el token de reCAPTCHA -->
                 <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-
+                <br>
                 <button type="submit" class="button primary">Iniciar sesión</button>
                 <button><a href="registro.php">No tengo cuenta. Registrarme</a></button>
             </fieldset>
@@ -153,10 +152,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script>
-        grecaptcha.ready(function() {
+        grecaptcha.ready(function () {
             grecaptcha.execute('6LchmTUqAAAAADSYfuXEbzeNWDjLcNouYe45NP1m', {
                 action: 'login'
-            }).then(function(token) {
+            }).then(function (token) {
                 document.getElementById('g-recaptcha-response').value = token;
             });
         });

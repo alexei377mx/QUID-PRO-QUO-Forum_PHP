@@ -1,26 +1,19 @@
 .radio-controls button {
     background: none;
-    /* Elimina el fondo para que se vea más delgado */
     border: none;
-    /* Elimina el borde */
     padding: 5px;
-    /* Ajusta el espacio interior del botón */
     width: 30px;
-    /* Define el ancho del botón */
     height: 30px;
-    /* Define la altura del botón */
     cursor: pointer;
-    /* Cambia el cursor al pasar por encima */
 }
 
 .radio-controls button img {
     width: 100%;
-    /* Asegura que la imagen se ajuste al tamaño del botón */
     height: auto;
 }
 
 header {
-    background-color: rgba(255, 255, 255, 0.60);
+    background-color: rgba(255, 255, 255, 0.5);
     color: #fff;
     padding: 0px;
     backdrop-filter: blur(10px);
@@ -90,7 +83,9 @@ nav a:hover {
     display: block;
 }
 
+
 /* Estilos para móvil */
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -127,19 +122,15 @@ nav a:hover {
     nav {
         display: none;
     }
-
     .hamburger {
         display: flex;
     }
-
     .mobile-menu {
         display: none;
     }
-
     .show {
         display: flex;
     }
-
     header h4 {
         display: none;
     }

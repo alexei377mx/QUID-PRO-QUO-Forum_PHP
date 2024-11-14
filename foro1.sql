@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2024 a las 15:34:57
+-- Tiempo de generación: 12-11-2024 a las 15:01:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -38,15 +38,15 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`id_categoria`, `nombre`) VALUES
 (1, 'Sobre el foro'),
-(2, 'Modelos 3D'),
-(3, 'General'),
-(4, 'Política'),
-(5, 'Películas / Series'),
+(2, 'General'),
+(3, 'Modelos 3D'),
+(4, 'Películas / Series'),
+(5, 'Anime / Manga'),
 (6, 'Deportes'),
-(7, 'Anime / Manga'),
+(7, 'Política'),
 (8, 'Educación'),
 (9, 'LGBTTTQI+'),
-(10, 'Comercio');
+(10, 'Ocio');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ INSERT INTO `comentarios` (`id_comentario`, `id_hilo`, `id_usuario`, `contenido`
 (92, 39, 3, 'x', '2024-10-22 07:47:25', '2024-10-22 07:48:00', NULL, 0),
 (93, 11, 7, 'shdhfds', '2024-10-22 08:06:32', NULL, NULL, 1),
 (94, 11, 7, 'dfgfgdfg', '2024-10-22 08:07:11', NULL, NULL, 1),
-(95, 11, 7, 'fgdfgdfgd', '2024-10-22 08:10:43', NULL, NULL, 0),
+(95, 11, 7, 'fgdfgdfgd', '2024-10-22 08:10:43', NULL, NULL, 1),
 (96, 11, 7, 'fgdfgdfgd', '2024-10-22 08:10:46', NULL, NULL, 1),
 (97, 40, 9, 'comentario', '2024-10-22 08:15:58', NULL, NULL, 1),
 (98, 40, 9, 'xd', '2024-10-22 08:16:01', NULL, NULL, 1),
@@ -157,11 +157,13 @@ INSERT INTO `comentarios` (`id_comentario`, `id_hilo`, `id_usuario`, `contenido`
 (101, 22, 4, 'f', '2024-10-22 08:38:04', NULL, NULL, 0),
 (102, 37, 8, 'si', '2024-10-22 08:56:28', NULL, NULL, 0),
 (103, 22, 4, 'xd', '2024-10-24 08:04:30', NULL, NULL, 0),
-(104, 11, 10, 'Comentario Prueba 😜😜😜😜😜😜', '2024-10-24 08:34:45', NULL, NULL, 0),
-(105, 11, 10, 'Imagen en comentario', '2024-10-24 08:35:21', '2024-10-24 08:51:59', 'uploads/comentarios/descarga (2).jpg', 0),
+(104, 11, 10, 'Comentario Prueba 😜😜😜😜😜😜', '2024-10-24 08:34:45', NULL, NULL, 1),
+(105, 11, 10, 'Imagen en comentario', '2024-10-24 08:35:21', '2024-10-24 08:51:59', 'uploads/comentarios/descarga (2).jpg', 1),
 (106, 24, 10, 'f', '2024-10-24 08:42:08', NULL, NULL, 0),
 (107, 44, 10, 'Haz dieta', '2024-10-24 08:51:31', '2024-10-24 08:53:23', NULL, 1),
-(108, 45, 8, 's', '2024-10-29 08:03:41', NULL, NULL, 0);
+(108, 45, 8, 'sk', '2024-10-29 08:03:41', '2024-11-12 07:45:58', NULL, 0),
+(109, 46, 11, '> Markdown', '2024-11-05 08:13:29', '2024-11-05 08:39:21', 'uploads/comentarios/1361559.jpeg', 1),
+(110, 11, 8, 'h', '2024-11-05 08:36:42', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -188,17 +190,17 @@ CREATE TABLE `hilos` (
 --
 
 INSERT INTO `hilos` (`id_hilo`, `id_usuario`, `titulo`, `contenido`, `fecha_creacion`, `fecha_edicion`, `id_categoria`, `imagen_ruta`, `visitas`, `eliminado`, `obj_ruta`) VALUES
-(1, 1, 'Lorem ipsum dolor sit amet consectetur adipiscing elit, malesuada convallis ante diam arcu lectus sociosqu, nullam ornare purus fusce fames etiam. Mi arcu mus hendrerit netus accumsan turpis lectus senectus, pellentesque torquent porttitor enim libero nis', 'XD\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit, malesuada convallis ante diam arcu lectus sociosqu, nullam ornare purus fusce fames etiam. ', '2024-08-22 15:26:47', '2024-08-27 08:36:45', NULL, NULL, 12, 0, NULL),
+(1, 1, 'Lorem ipsum dolor sit amet consectetur adipiscing elit, malesuada convallis ante diam arcu lectus sociosqu, nullam ornare purus fusce fames etiam. Mi arcu mus hendrerit netus accumsan turpis lectus senectus, pellentesque torquent porttitor enim libero nis', 'XD\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit, malesuada convallis ante diam arcu lectus sociosqu, nullam ornare purus fusce fames etiam. ', '2024-08-22 15:26:47', '2024-08-27 08:36:45', NULL, NULL, 13, 0, NULL),
 (2, 1, 'Hilo', 'Hilo', '2024-08-22 15:27:02', NULL, NULL, NULL, 1, 0, NULL),
 (3, 2, 'Prueba', 'Lorem', '2024-08-22 07:31:40', NULL, 3, NULL, 1, 0, NULL),
-(4, 2, 'Amin', 'd', '2024-08-22 07:57:33', NULL, 3, NULL, 4, 0, NULL),
+(4, 2, 'Amin', 'd', '2024-08-22 07:57:33', NULL, 3, NULL, 21, 0, NULL),
 (5, 2, 'hilos', 'xy', '2024-08-22 07:59:19', '2024-08-22 08:00:20', 1, NULL, 0, 0, NULL),
 (6, 2, 'Admin', 'admin', '2024-08-22 08:01:37', NULL, 1, NULL, 0, 0, NULL),
 (7, 2, 'El hilo1', 'XD?', '2024-08-22 08:12:41', '2024-08-22 08:12:48', 1, NULL, 1, 0, NULL),
 (8, 2, '.', '.', '2024-08-22 09:22:41', '2024-09-05 07:48:25', 4, NULL, 0, 0, NULL),
 (9, 2, 'Lorem ipsum dolor sit amet', 'Lorem ipsum dolor sit amet consectetur adipiscing elit, conubia mollis inceptos lacus tortor cubili', '2024-08-27 07:15:13', '2024-08-29 09:00:14', 1, 'uploads/descarga.png', 22, 0, NULL),
 (10, 3, 'Lorem ipsum dolor sit amet consectetur adipiscing elit vehicula urn', 'Lorem\r\nLorem', '2024-08-27 14:03:07', '2024-08-29 08:00:47', 1, 'uploads/paisaje-forestal.jpg', 16, 1, NULL),
-(11, 3, 'hilo con imagen: phasellus duis et mus dui eget habitant.', 'Hilo con imagenG\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit lacinia, aliquet accumsan scelerisque commodo fusce dui semper, malesuada laoreet porta nascetur iaculis aliquam fringilla.', '2024-08-29 07:39:57', '2024-10-24 08:47:22', 1, 'uploads/peakpx.jpg', 27, 0, NULL),
+(11, 3, 'hilo con imagen: phasellus duis et mus dui eget habitant.', 'Hilo con imagenG\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit lacinia, aliquet accumsan scelerisque commodo fusce dui semper, malesuada laoreet porta nascetur iaculis aliquam fringilla.', '2024-08-29 07:39:57', '2024-10-24 08:47:22', 1, 'uploads/peakpx.jpg', 60, 0, NULL),
 (12, 3, 'hilo IMG', 'AS\r\nLorem ipsum dolor sit amet consectetur adipiscing elit lacinia, aliquet accumsan scelerisque commodo fusce dui semper, malesuada laoreet ', '2024-08-29 08:20:36', '2024-08-29 08:50:09', 2, 'uploads/paisaje-forestal.jpg', 2, 1, NULL),
 (13, 3, 'IMG', 'IMG', '2024-08-29 08:28:25', '2024-08-29 08:28:50', 1, 'uploads/pang-yuhao-wCi28eq8TF4-unsplash.jpg', 0, 0, NULL),
 (14, 3, 'sadsadsdf', '> Lorem ipsum dolor sit amet consectetur adipiscing elit lacinia, aliquet accumsan scelerisque commodo fusce dui semper, malesuada laorsdfsdf', '2024-08-29 08:51:44', '2024-10-08 09:12:03', 3, 'uploads/hilos/PracticaNo9_Rodriguez_Garcia_MariaFernanda.png', 10, 1, NULL),
@@ -208,27 +210,29 @@ INSERT INTO `hilos` (`id_hilo`, `id_usuario`, `titulo`, `contenido`, `fecha_crea
 (18, 2, 'Hilo con Markdown', '# titulo\r\n- Texto\r\n> Cita', '2024-09-02 10:42:10', NULL, 1, NULL, 4, 0, NULL),
 (19, 2, 'imggg', 'XD', '2024-09-03 08:08:19', '2024-09-03 08:09:02', 3, 'uploads/descarga.png', 0, 0, NULL),
 (20, 2, 'IMGG', 'IMGG', '2024-09-03 08:09:29', '2024-09-03 08:11:48', 1, 'uploads/hilos/eca456b6290cdf07cd4ccce525d3c780.jpg', 20, 0, NULL),
-(21, 1, 'Markdown', '> Markdown\r\n> I need to highlight these ==very important words==.\r\n\r\n| Syntax | Description|\r\n| -------- | --------------|\r\n| Header      | Title |\r\n| Paragraph   | Text |\r\n\r\n| Syntax      | Description | Test Text     |\r\n| :---        |    :----:   |          ---: |\r\n| Header      | Title       | Here\'s this   |\r\n| Paragraph   | Text        | And more      |', '2024-09-03 08:20:49', '2024-09-03 08:34:33', 3, 'uploads/hilos/eca456b6290cdf07cd4ccce525d3c780.jpg', 48, 0, NULL),
+(21, 1, 'Markdown', '> Markdown\r\n> I need to highlight these ==very important words==.\r\n\r\n| Syntax | Description|\r\n| -------- | --------------|\r\n| Header      | Title |\r\n| Paragraph   | Text |\r\n\r\n| Syntax      | Description | Test Text     |\r\n| :---        |    :----:   |          ---: |\r\n| Header      | Title       | Here\'s this   |\r\n| Paragraph   | Text        | And more      |', '2024-09-03 08:20:49', '2024-09-03 08:34:33', 3, 'uploads/hilos/eca456b6290cdf07cd4ccce525d3c780.jpg', 49, 0, NULL),
 (22, 4, 'XD', 'XD', '2024-09-03 08:55:46', NULL, 1, 'uploads/hilos/dolar.jpg', 7, 0, NULL),
 (23, 2, 'H', 'H', '2024-09-05 07:45:53', '2024-09-05 07:46:25', 1, 'uploads/hilos/Captura de pantalla (1).png', 2, 1, NULL),
-(24, 3, 'HILO IMG', 'IMG', '2024-09-05 08:51:50', '2024-10-17 07:33:41', 1, 'uploads/hilos/PracticaNo7_Longinos_Chavez_JoseManuel.png', 24, 0, NULL),
+(24, 3, 'HILO IMG', 'IMG', '2024-09-05 08:51:50', '2024-10-17 07:33:41', 1, 'uploads/hilos/PracticaNo7_Longinos_Chavez_JoseManuel.png', 27, 0, NULL),
 (25, 2, 'LOREMDFGDFGD', '> Lorem ipsum dolor sit amet consectetur adipiscing elit rhoncus vitae, nam magnis scelerisque ph\r\n\r\n# n quis non.', '2024-09-10 08:39:30', '2024-09-17 09:24:08', 2, NULL, 95, 0, NULL),
 (26, 1, 'dfgfdgfdg', 'dfgfdgfd', '2024-09-10 09:03:39', NULL, 2, NULL, 101, 0, NULL),
 (27, 2, 'Hilo', '> Cita', '2024-09-12 08:09:30', NULL, 2, 'uploads/hilos/descarga.jpg', 24, 1, NULL),
 (28, 2, 's', 's', '2024-09-12 08:17:30', NULL, 4, NULL, 12, 0, NULL),
 (29, 2, 'S', 's', '2024-09-12 08:17:42', '2024-09-12 09:06:24', 4, NULL, 43, 1, NULL),
 (30, 1, 'XD', '😘😋🥝😁😁😁😁😁\r\n\r\n> Markdown\r\n\r\n# 😅😅', '2024-09-17 08:29:54', '2024-09-17 09:13:37', 4, NULL, 191, 1, NULL),
-(35, 2, 'fECHA', 'XD', '2024-09-24 08:11:10', '2024-09-24 08:26:01', 8, NULL, 67, 0, NULL),
+(35, 2, 'fECHA', 'XD', '2024-09-24 08:11:10', '2024-09-24 08:26:01', 8, NULL, 68, 0, NULL),
 (36, 2, 'test', 'dsf', '2024-10-08 07:46:43', NULL, 1, NULL, 3, 1, NULL),
-(37, 7, 'hilo', '> cita\r\n### Texto🤠🤠\r\n\r\n- h\r\n- H', '2024-10-15 07:59:46', '2024-10-15 08:00:37', 5, NULL, 31, 0, NULL),
+(37, 7, 'hilo', '> cita\r\n### Texto🤠🤠\r\n\r\n- h\r\n- H', '2024-10-15 07:59:46', '2024-10-15 08:00:37', 5, NULL, 33, 0, NULL),
 (38, 3, 'OBJ', 'VRML', '2024-10-17 07:44:45', '2024-10-17 08:23:05', 8, NULL, 26, 0, 'uploads/obj/model.obj'),
-(39, 3, 'obj', 'obj', '2024-10-17 08:01:42', '2024-10-17 08:06:33', 3, NULL, 53, 0, 'uploads/obj/Wooden chair.obj'),
+(39, 3, 'obj', 'obj', '2024-10-17 08:01:42', '2024-10-17 08:06:33', 3, NULL, 55, 0, 'uploads/obj/Wooden chair.obj'),
 (40, 9, 'Hilo prueba', '> XD', '2024-10-22 08:15:53', NULL, 2, NULL, 9, 1, NULL),
 (41, 6, 'xd', 'sad', '2024-10-22 08:24:58', NULL, 3, NULL, 3, 1, NULL),
 (42, 4, 'f', 'sfd', '2024-10-22 08:41:23', NULL, 3, NULL, 1, 0, NULL),
-(43, 8, 'Modelo obj', '> OBJ: WOLF', '2024-10-22 09:05:11', '2024-10-24 07:36:51', 2, NULL, 69, 0, 'uploads/obj/wolf.obj'),
+(43, 8, 'Modelo obj', '> OBJ: WOLF', '2024-10-22 09:05:11', '2024-10-24 07:36:51', 2, NULL, 73, 0, 'uploads/obj/wolf.obj'),
 (44, 10, 'Abro hilo: soy gordofóbico', '# xd', '2024-10-24 08:39:29', '2024-10-24 08:52:43', 2, 'uploads/hilos/descarga (2).jpg', 31, 1, NULL),
-(45, 8, 'dsfsdf', 'sdfsdfsdfsdf', '2024-10-29 07:45:11', NULL, 1, 'uploads/hilos/Captura de pantalla (2).png', 4, 0, NULL);
+(45, 8, 'H', 'sdfsdfsdfsdf', '2024-10-29 07:45:11', '2024-11-12 07:45:33', 1, 'uploads/hilos/Captura de pantalla (2).png', 28, 0, NULL),
+(46, 11, 'hilo prueba', '### Markdown\r\n\r\n>  MArkdown\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit, laoreet interdum nibh montes mus donec sem, aenean quisque nam facilisis malesuada scelerisque. Ullamcorper aptent ante elementum tortor interdum dignissim non tempus sociosqu, nibh curabitur cubilia donec vivamus molestie senectus sagittis dis scelerisque, quam maecenas parturient himenaeos commodo nam habitant placerat. Pellentesque tellus duis imperdiet hac purus enim augue vivamus faucibus, suspendisse pharetra euismod consequat himenaeos sed quisque varius, commodo eget ullamcorper primis litora tempor ridiculus id.\r\n\r\nQuam pellentesque mus pretium ornare nisi lacinia scelerisque, cras inceptos aliquam eget convallis placerat non quis, nunc proin vivamus sodales class sem. Taciti iaculis magnis hac faucibus primis tortor nulla et luctus sagittis dui, semper malesuada cras vivamus cum sapien massa tempus facilisis facilisi, phasellus felis porta conubia blandit turpis leo tristique egestas vehicula. Nec justo montes nam lacinia aenean magna facilisi odio tempor erat, viverra taciti dictum gravida inceptos sollicitudin volutpat molestie ultricies integer, dis habitasse venenatis feugiat imperdiet pulvinar posuere parturient leo. Nam augue vitae curabitur metus lacus ut hac purus, sem at morbi felis donec nec duis nibh rhoncus, non commodo ridiculus venenatis luctus posuere molestie.\r\n\r\nLacinia tortor enim ullamcorper donec quisque pretium a cras, velit mollis conubia lectus molestie habitant orci, porta ultrices inceptos rutrum torquent suspendisse nibh. Nam vulputate non tempus eget quisque suscipit himenaeos id, augue purus imperdiet sagittis ridiculus feugiat interdum, felis vehicula et convallis euismod tempor fringilla. Inceptos luctus vivamus quis duis est dapibus auctor lacinia mus ad facilisis, posuere purus ac placerat taciti fringilla blandit aptent lobortis lectus gravida, euismod risus urna augue pretium aliquet tristique dignissim et sociis.\r\n\r\nSociis diam purus lacus nisl donec nulla mattis cubilia sollicitudin molestie ad eu, sapien sodales iaculis egestas lobortis gravida praesent habitant aliquam curabitur pretium. Blandit feugiat facilisis ultricies torquent conubia tempor egestas et rutrum auctor, aliquet rhoncus nec ridiculus posuere est pellentesque pulvinar eget id laoreet, etiam nascetur cum dignissim diam mattis ultrices integer gravida. Imperdiet quis proin a mauris est integer justo hendrerit, scelerisque velit tortor felis iaculis euismod sapien natoque egestas, leo neque vivamus fermentum aliquet ut rutrum. Platea et pharetra sem metus eros sociosqu lacinia, per hac vitae erat pretium nascetur fermentum duis, porttitor nulla nisl maecenas morbi netus.', '2024-11-05 08:10:27', '2024-11-05 08:29:28', 1, 'uploads/hilos/1361559.jpeg', 41, 0, NULL),
+(47, 11, 'OBJ', '> OBJ\r\n### 🙃🙃', '2024-11-05 08:38:21', '2024-11-05 08:38:38', 2, NULL, 9, 0, 'uploads/obj/wolf.obj');
 
 -- --------------------------------------------------------
 
@@ -260,7 +264,8 @@ INSERT INTO `radio` (`id_radio`, `nombre`, `url`) VALUES
 (14, 'Naya Ballad - Soul Kpop (Broad) https://sCast.kr/', 'http://e79.kr/soul'),
 (15, 'Jazz Cafe', 'https://radio.wanderingsheep.net:8000/jazzcafe'),
 (16, 'Classical FM Radio', 'https://cheetah.streemlion.com:2460/stream'),
-(17, 'RadioMonster.FM - Evergreens (320kbps)', 'https://ic.radiomonster.fm/evergreens.ultra');
+(17, 'RadioMonster.FM - Evergreens (320kbps)', 'https://ic.radiomonster.fm/evergreens.ultra'),
+(20, 'Radio Disney 92.1 FM', 'https://26233.live.streamtheworld.com/XHFOFMAAC_SC');
 
 -- --------------------------------------------------------
 
@@ -274,41 +279,45 @@ CREATE TABLE `reportes` (
   `tipo_objeto` enum('hilo','comentario') NOT NULL,
   `id_objeto` int(11) NOT NULL,
   `motivo` varchar(255) NOT NULL,
-  `fecha_reporte` datetime DEFAULT current_timestamp()
+  `fecha_reporte` datetime DEFAULT current_timestamp(),
+  `revisado` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reportes`
 --
 
-INSERT INTO `reportes` (`id_reporte`, `id_usuario`, `tipo_objeto`, `id_objeto`, `motivo`, `fecha_reporte`) VALUES
-(1, 1, 'hilo', 2, 'Contenido inapropiado', '2024-09-02 12:00:00'),
-(2, 2, 'comentario', 4, 'Spam o publicidad no deseada', '2024-09-02 13:00:00'),
-(3, 1, 'hilo', 21, 'Terrorismo', '2024-09-03 08:43:28'),
-(4, 1, 'hilo', 21, 'Terrorismo', '2024-09-03 08:43:56'),
-(5, 1, 'comentario', 45, 'Terrorismo XD', '2024-09-03 08:45:40'),
-(6, 1, 'hilo', 21, 'XD', '2024-09-03 08:48:27'),
-(7, 1, 'comentario', 46, 'XD', '2024-09-03 08:48:37'),
-(8, 1, 'comentario', 46, 'XD', '2024-09-03 08:49:14'),
-(9, 4, 'hilo', 21, 'TERRORISMO', '2024-09-03 08:50:56'),
-(10, 3, 'comentario', 38, 'terrorismo', '2024-09-05 08:48:33'),
-(11, 2, 'hilo', 25, 'AHHHHHHHHHHHHHHHHHHHHH', '2024-09-10 08:40:59'),
-(12, 2, 'hilo', 21, 'TERRORISMO', '2024-09-10 08:53:36'),
-(13, 2, 'comentario', 12, 'FFDGDFG', '2024-09-10 08:58:28'),
-(14, 2, 'hilo', 21, 'TERRORISMO:D', '2024-09-12 09:22:15'),
-(15, 6, 'hilo', 23, 'Violencia', '2024-09-19 07:25:49'),
-(16, 2, 'hilo', 35, 'Acoso', '2024-09-24 09:00:35'),
-(17, 3, 'comentario', 82, 'Infracción de derechos de autor', '2024-10-08 09:11:34'),
-(18, 7, 'comentario', 87, 'Spam', '2024-10-15 08:01:10'),
-(19, 3, 'hilo', 11, 'Información falsa', '2024-10-22 08:06:10'),
-(20, 10, 'hilo', 11, 'Violencia', '2024-10-24 08:33:16'),
-(21, 10, 'hilo', 11, 'Violencia', '2024-10-24 08:33:25'),
-(22, 10, 'hilo', 11, 'Violencia', '2024-10-24 08:34:20'),
-(23, 10, 'hilo', 11, 'Fraude', '2024-10-24 08:34:29'),
-(24, 10, 'comentario', 95, 'Contenido inapropiado', '2024-10-24 08:34:56'),
-(25, 10, 'hilo', 44, 'Violencia', '2024-10-24 08:51:25'),
-(26, 10, 'comentario', 107, 'Infracción de derechos de autor', '2024-10-24 08:53:28'),
-(27, 8, 'hilo', 44, 'Incitación al odio', '2024-10-24 08:59:18');
+INSERT INTO `reportes` (`id_reporte`, `id_usuario`, `tipo_objeto`, `id_objeto`, `motivo`, `fecha_reporte`, `revisado`) VALUES
+(1, 1, 'hilo', 2, 'Contenido inapropiado', '2024-09-02 12:00:00', 0),
+(2, 2, 'comentario', 4, 'Spam o publicidad no deseada', '2024-09-02 13:00:00', 0),
+(3, 1, 'hilo', 21, 'Terrorismo', '2024-09-03 08:43:28', 0),
+(4, 1, 'hilo', 21, 'Terrorismo', '2024-09-03 08:43:56', 0),
+(5, 1, 'comentario', 45, 'Terrorismo XD', '2024-09-03 08:45:40', 0),
+(6, 1, 'hilo', 21, 'XD', '2024-09-03 08:48:27', 0),
+(7, 1, 'comentario', 46, 'XD', '2024-09-03 08:48:37', 0),
+(8, 1, 'comentario', 46, 'XD', '2024-09-03 08:49:14', 0),
+(9, 4, 'hilo', 21, 'TERRORISMO', '2024-09-03 08:50:56', 0),
+(10, 3, 'comentario', 38, 'terrorismo', '2024-09-05 08:48:33', 0),
+(11, 2, 'hilo', 25, 'AHHHHHHHHHHHHHHHHHHHHH', '2024-09-10 08:40:59', 0),
+(12, 2, 'hilo', 21, 'TERRORISMO', '2024-09-10 08:53:36', 0),
+(13, 2, 'comentario', 12, 'FFDGDFG', '2024-09-10 08:58:28', 0),
+(14, 2, 'hilo', 21, 'TERRORISMO:D', '2024-09-12 09:22:15', 0),
+(15, 6, 'hilo', 23, 'Violencia', '2024-09-19 07:25:49', 0),
+(16, 2, 'hilo', 35, 'Acoso', '2024-09-24 09:00:35', 0),
+(17, 3, 'comentario', 82, 'Infracción de derechos de autor', '2024-10-08 09:11:34', 0),
+(18, 7, 'comentario', 87, 'Spam', '2024-10-15 08:01:10', 0),
+(19, 3, 'hilo', 11, 'Información falsa', '2024-10-22 08:06:10', 0),
+(20, 10, 'hilo', 11, 'Violencia', '2024-10-24 08:33:16', 0),
+(21, 10, 'hilo', 11, 'Violencia', '2024-10-24 08:33:25', 0),
+(22, 10, 'hilo', 11, 'Violencia', '2024-10-24 08:34:20', 0),
+(23, 10, 'hilo', 11, 'Fraude', '2024-10-24 08:34:29', 0),
+(24, 10, 'comentario', 95, 'Contenido inapropiado', '2024-10-24 08:34:56', 0),
+(25, 10, 'hilo', 44, 'Violencia', '2024-10-24 08:51:25', 0),
+(26, 10, 'comentario', 107, 'Infracción de derechos de autor', '2024-10-24 08:53:28', 0),
+(27, 8, 'hilo', 44, 'Incitación al odio', '2024-10-24 08:59:18', 0),
+(28, 8, 'comentario', 108, 'Violencia', '2024-11-05 07:27:27', 1),
+(29, 11, 'hilo', 46, 'Spam', '2024-11-05 08:14:14', 1),
+(30, 11, 'comentario', 109, 'Infracción de derechos de autor', '2024-11-05 08:14:20', 1);
 
 -- --------------------------------------------------------
 
@@ -339,10 +348,11 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre_usuario`, `email`, `contrasena`, `
 (4, 'q', 'qasd@ada.asd', '$2y$10$tTAjNnVzNqmFgLJCjofYXuynkMo.jVZ3f24.R/h7kI250N/B4HVNO', '2024-09-03 08:50:03', NULL, 'descarga (1).jpg', 0, 1),
 (5, 'sdfsdfsdf', 'sdfsdf@sadsad.sadasd', '$2y$10$WD4Cf5Fzhm3iP3quWo7XB.1a8Dg6PSnF6Wifm6mdoJ816lhV0Gmn6', '2024-09-10 09:02:19', NULL, NULL, 0, 1),
 (6, 'admin1', 'admaiofhdioeq@dhiosaid.jasdgha', '$2y$10$fZYsE7BQ6cvI/GMbSU02q.tTit9XxzIIWt0Q3wb0tbFG.22iHFyQO', '2024-09-19 07:22:56', NULL, NULL, 1, 1),
-(7, 'adminn', 'admin@admin.madiiii', '$2y$10$0gDI1E.NlXZaXz5mnOmeQeTW5JsVQhLaSUiJsmHLgIDBjKVqkM62O', '2024-10-15 07:45:55', NULL, NULL, 4, 0),
-(8, 'admin', 'jopapi6077@chysir.com', '$2y$10$UwaPEr0cJ/KBIHekDNrmJ.MHXSNIBpWpW9OIp9FvSwcSrEw5hMami', '2024-10-22 08:11:50', NULL, 'Vecteur Dicône Mâle PNG , Clipart De Travail, Utilisateur, Icône PNG et vecteur pour téléchargement gratuit.jpg', 0, 1),
+(7, 'adminn', 'admin@admin.madiiii', '$2y$10$0gDI1E.NlXZaXz5mnOmeQeTW5JsVQhLaSUiJsmHLgIDBjKVqkM62O', '2024-10-15 07:45:55', NULL, NULL, 5, 0),
+(8, 'admin', 'jopapi6077@chysir.com', '$2y$10$UwaPEr0cJ/KBIHekDNrmJ.MHXSNIBpWpW9OIp9FvSwcSrEw5hMami', '2024-10-22 08:11:50', NULL, 'Vecteur.jpg', 0, 1),
 (9, 'pruebaaa', 'peueba@klfoe.com', '$2y$10$7uaxLFpGrUmt5GchojztkelXUwMCyJ3LAcsixJ8Q1E7KfaQMbMiUa', '2024-10-22 08:15:40', NULL, NULL, 4, 0),
-(10, 'prueba', 'prueba@prueba.comn', '$2y$10$p4bdc.1B32gkMH3JrV3mn.zR2isbNeEfmLw2s5wPB2E54X.lHtg.S', '2024-10-24 08:32:50', NULL, 'asasdescarga.png', 2, 1);
+(10, 'prueba', 'prueba@prueba.comn', '$2y$10$p4bdc.1B32gkMH3JrV3mn.zR2isbNeEfmLw2s5wPB2E54X.lHtg.S', '2024-10-24 08:32:50', NULL, 'asasdescarga.png', 4, 1),
+(11, 'usuario', 'usuario@gmail.com', '$2y$10$sBfD5GeYodCdP2R4Z3wwwuOt84GT8dCBkxHQTyH.FO0VSZcWyvuV2', '2024-11-05 08:01:05', NULL, 'facebook-icon.png', 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -404,31 +414,31 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT de la tabla `hilos`
 --
 ALTER TABLE `hilos`
-  MODIFY `id_hilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_hilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `radio`
 --
 ALTER TABLE `radio`
-  MODIFY `id_radio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_radio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `reportes`
 --
 ALTER TABLE `reportes`
-  MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_reporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas

@@ -1,7 +1,12 @@
 <?php
 include "conexion.php";
 
-$sql_categorias = "SELECT id_categoria, nombre FROM categorias";
+$sql_categorias = "SELECT c.id_categoria, c.nombre, COUNT(h.id_hilo) AS numero_hilos 
+                   FROM categorias c
+                   LEFT JOIN hilos h ON c.id_categoria = h.id_categoria AND h.eliminado = 0
+                   GROUP BY c.id_categoria
+                   ORDER BY c.id_categoria";
+
 $result_categorias = $conexion->query($sql_categorias);
 
 $sql_radios = "SELECT * FROM radio";
@@ -84,6 +89,7 @@ while ($radio = $resultado_radios->fetch_assoc()) {
                         <?php while ($row = $result_categorias->fetch_assoc()): ?>
                             <a href="categorias.php?id=<?php echo htmlspecialchars($row['id_categoria']); ?>">
                                 <?php echo htmlspecialchars($row['nombre']); ?>
+                                (<?php echo $row['numero_hilos']; ?>)
                             </a>
                         <?php endwhile; ?>
                     </div>
@@ -102,20 +108,27 @@ while ($radio = $resultado_radios->fetch_assoc()) {
                     </div>
                 </div>
             <?php else: ?>
+                <div class="menu">
+                    <p class="button">Categorías</p>
+                    <div class="menu-content">
+                        <?php while ($row = $result_categorias->fetch_assoc()): ?>
+                            <a href="categorias.php?id=<?php echo htmlspecialchars($row['id_categoria']); ?>">
+                                <?php echo htmlspecialchars($row['nombre']); ?>
+                                (<?php echo $row['numero_hilos']; ?>)
+                            </a>
+                        <?php endwhile; ?>
+                    </div>
+                </div>
                 <p><a href="login.php" class="button primary">Iniciar sesión</a></p>
             <?php endif; ?>
             <div class="col"></div>
             <div class="col"></div>
-
-            <!-- Ícono de modo oscuro/claro -->
-            <!--     <button id="darkModeToggle" class="button secondary">
-                <i class="fas fa-moon"></i>
-            </button> -->
         </nav>
 
         <div class="mobile-menu" id="mobileMenu">
             <?php if (isset($_SESSION['nombre_usuario'])): ?>
                 <p>Hola, <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?>!</p>
+                <a href="categorias_movil.php">Categorías</a>
                 <a href="crear_hilo.php">Crear un nuevo hilo</a>
                 <?php if ($_SESSION['nombre_usuario'] === 'admin'): ?>
                     <a href="admin.php">Panel de Administración</a>
@@ -123,6 +136,7 @@ while ($radio = $resultado_radios->fetch_assoc()) {
                 <a href="perfil.php">Mi perfil</a>
                 <a href="logout.php">Cerrar sesión</a>
             <?php else: ?>
+                <a href="categorias_movil.php">Categorías</a>
                 <a href="login.php">Iniciar sesión</a>
             <?php endif; ?>
         </div>
